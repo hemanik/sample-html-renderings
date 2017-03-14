@@ -1,0 +1,1959 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Drone</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Drone</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>The Arquillian Drone 2 extension for Arquillian provides a simple way
+to include functional tests for an application with a web-based
+user interface.</p></div>
+<div class="paragraph"><p>Arquillian Drone 2 brings the power of WebDriver into the Arquillian framework.
+WebDriver serves as a language to communicate with the browser, by filling the forms, navigating the
+pages and validating their content. Compared with its predecessor
+Arquillian Drone 1, it offers
+<a href="http://github.com/arquillian/arquillian-extension-drone/wiki/SPI-changes-in-Drone-2">new
+features and tools</a> as part of the SPI as well as
+<a href="http://github.com/arquillian/arquillian-extension-drone/wiki/API-changes-in-Drone-2">multiple
+life cycle scopes of @Drone points</a> as part of the API.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_should_i_use_arquillian_drone_instead_of_plain_webdriver">Why should I use Arquillian Drone instead of plain WebDriver?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>There are many reasons why you would want to do that, the most important ones
+being:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Life cycle management of the browser
+</p>
+</li>
+<li>
+<p>
+Interaction with deployments and containers provided by Arquillian
+</p>
+</li>
+<li>
+<p>
+Simple usage of multiple browsers in a single test
+</p>
+</li>
+<li>
+<p>
+Configuration kept in a single place, outside of the Java code
+</p>
+</li>
+<li>
+<p>
+Full compatibility with the IDE
+</p>
+</li>
+<li>
+<p>
+Support for injection of Pages, PagesFragments, AJAX request guards
+and more via Arquillian Graphene 2
+</p>
+</li>
+<li>
+<p>
+Integration with mobile based browser testing (Arquillian Droidium)
+</p>
+</li>
+<li>
+<p>
+Integration of JavaScript test suite execution (QUnit)
+</p>
+</li>
+<li>
+<p>
+Compatible with WebDriver (Selenium 2) and Selenium Grids
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following example illustrates how Arquillian Drone can be used with
+WebDriver:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">WebDriverTest</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> USERNAME <span style="color: #990000">=</span> <span style="color: #FF0000">"demo"</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> PASSWORD <span style="color: #990000">=</span> <span style="color: #FF0000">"demo"</span><span style="color: #990000">;</span>
+
+    @ArquillianResource
+    <span style="color: #008080">URL</span> contextPath<span style="color: #990000">;</span>
+
+    @Drone
+    <span style="color: #008080">WebDriver</span> driver<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates a testing WAR of using ShrinkWrap</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span><span style="font-style: italic"><span style="color: #9A1900"> WebArchive to be tested</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    @<span style="font-weight: bold"><span style="color: #000000">Deployment</span></span><span style="color: #990000">(</span>testable <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">WebArchive</span> <span style="font-weight: bold"><span style="color: #000000">createDeployment</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> Deployments<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">createDeployment</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    @<span style="font-weight: bold"><span style="color: #000000">InSequence</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">LoginPage</span> page <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">LoginPage</span></span><span style="color: #990000">(</span>driver<span style="color: #990000">,</span> contextPath<span style="color: #990000">);</span>
+        page<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">(</span>USERNAME<span style="color: #990000">,</span> PASSWORD<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    @<span style="font-weight: bold"><span style="color: #000000">InSequence</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">logout</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">LoginPage</span> page <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">LoginPage</span></span><span style="color: #990000">(</span>driver<span style="color: #990000">,</span> contextPath<span style="color: #990000">);</span>
+        page<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">logout</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Notice here that the Arquillian Drone test looks similar to an Arquillian
+test. There is <code>@RunWith(Arquillian.class)</code> runner, a <code>@Deployment</code>
+method and a few <code>@Test</code> methods. The only new elements are
+<code>@ArquillianResource</code>, which is here used to inject the <code>URL</code> of the
+deployed application and <code>@Drone</code>, which injects a <code>WebDriver</code> browser,
+managed for you as described in <a href="#life-cycle-scopes-of-drone-points">[life-cycle-scopes-of-drone-points]</a>. </p></div>
+<div class="paragraph"><p>Even when using JUnit, Arquillian allows you to force method execution
+order via the @InSequence annotation. Arquillian Drone is obviously
+compatible with TestNG as well.</p></div>
+<div class="paragraph"><p>The `testable=false` argument for deployment forces Arquillian to run in
+client mode, that is not inside of the server where the application is
+deployed. </p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">All Drone tests <strong>must</strong> run in client mode. If you need to combine tests running inside of the server as well as on the client using single
+deployments, mark the deployment as <code>testable=true</code> and force client
+execution via the <code>@RunAsClient</code> annotation on every client <code>@Test</code>
+method.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>More details are listed in <a href="https://docs.jboss.org/author/display/ARQ/Test+run+modes">Arquillian
+Documentation test run modes</a>.</p></div>
+<div class="paragraph"><p>For the completeness of the code, here are the deployment methods as
+well as the LoginPage abstraction:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">LoginPage</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> LOGGED_IN <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">xpath</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"//li[contains(text(),'Welcome')]"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> LOGGED_OUT <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">xpath</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"//li[contains(text(),'Goodbye')]"</span><span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> USERNAME_FIELD <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">id</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"loginForm:username"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> PASSWORD_FIELD <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">id</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"loginForm:password"</span><span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> LOGIN_BUTTON <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">id</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"loginForm:login"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> LOGOUT_BUTTON <span style="color: #990000">=</span> By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">id</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"loginForm:logout"</span><span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">WebDriver</span> driver<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">URL</span> contextPath<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #000000">LoginPage</span></span><span style="color: #990000">(</span><span style="color: #008080">WebDriver</span> driver<span style="color: #990000">,</span> <span style="color: #008080">URL</span> contextPath<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">.</span>driver <span style="color: #990000">=</span> driver<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">.</span>contextPath <span style="color: #990000">=</span> contextPath<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> name<span style="color: #990000">,</span> <span style="color: #008080">String</span> password<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>contextPath <span style="color: #990000">+</span> <span style="color: #FF0000">"home.jsf"</span><span style="color: #990000">);</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>USERNAME_FIELD<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>USERNAME<span style="color: #990000">);</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>PASSWORD_FIELD<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>PASSWORD<span style="color: #990000">);</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>LOGIN_BUTTON<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+        Assert<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">isTrue</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"User is logged in."</span><span style="color: #990000">,</span> driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>LOGGED_IN<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">isDisplayed</span></span><span style="color: #990000">());</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">logout</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>LOGOUT_BUTTON<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+        Assert<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">isTrue</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"User is not logged in"</span><span style="color: #990000">,</span> driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>LOGGED_OUT<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">isDisplayed</span></span><span style="color: #990000">(),</span> <span style="color: #FF0000">"User is logged out"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">Deployments</span> <span style="color: #FF0000">{</span>
+
+   <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">WebArchive</span> <span style="font-weight: bold"><span style="color: #000000">createDeployment</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+
+        <span style="color: #008080">WebArchive</span> war <span style="color: #990000">=</span> ShrinkWrap<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span>WebArchive<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+                <span style="font-style: italic"><span style="color: #9A1900">// add classes</span></span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addClasses</span></span><span style="color: #990000">(</span>Credentials<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> LoggedIn<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> Login<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> User<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> Users<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+                <span style="font-style: italic"><span style="color: #9A1900">// add configuration</span></span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsResource</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"META-INF/persistence.xml"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"META-INF/persistence.xml"</span><span style="color: #990000">)</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebInfResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/WEB-INF/beans.xml"</span><span style="color: #990000">))</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebInfResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/WEB-INF/faces-config.xml"</span><span style="color: #990000">))</span>
+                <span style="font-style: italic"><span style="color: #9A1900">// add pages</span></span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/index.html"</span><span style="color: #990000">))</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/home.xhtml"</span><span style="color: #990000">))</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/template.xhtml"</span><span style="color: #990000">))</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsWebResource</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/users.xhtml"</span><span style="color: #990000">))</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setWebXML</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">File</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"src/test/webapp/WEB-INF/web.xml"</span><span style="color: #990000">));</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> war<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_frameworks_and_their_versions">Supported Frameworks And Their Versions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following frameworks are supported and tested with the latest
+version of Arquillian Drone. Drone type is the type you can inject via
+the <code>@Drone</code> annotation.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="40%" />
+<col width="40%" />
+<thead>
+<tr>
+<th align="left" valign="top">Framework Name </th>
+<th align="left" valign="top">Drone Type </th>
+<th align="left" valign="top">Tested Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">WebDriver</p></td>
+<td align="left" valign="top"><p class="table">ChromeDriver<br />
+ FirefoxDriver<br />
+ HtmlUnitDriver<br />
+ InternetExplorerDriver<br />
+ PhantomJSDriver<br />
+ OperaDriver<br />
+ RemoteDriver<br />
+ WebDriver</p></td>
+<td align="left" valign="top"><p class="table">2.53.1</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Arquillian Graphene</p></td>
+<td align="left" valign="top"><p class="table">WebDriver</p></td>
+<td align="left" valign="top"><p class="table">2.1.0.Final</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">It is not required to use Arquillian Drone with the exact version we
+certified. You can override versions via <code>&lt;dependencyManagement&gt;</code>, as
+explained in the
+<a href="https://community.jboss.org/wiki/HowDoISpecifyTheSeleniumVersionInArquillianDrone">Arquillian
+FAQ</a>.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>If you are in doubt what to use for a newly created project, Arquillian
+team recommends you to start with Graphene, which is based on WebDriver,
+however brings you a lot of AJAX goodies.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven_setup_example">Maven Setup Example</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Adding an Arquillian Drone dependency can be divided into two parts:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Adding a Bill of Materials (BOM) into the dependency section for
+both Arquillian and Arquillian Drone. This step ensures that Maven will
+fetch the correct version of all dependencies.
+</p>
+</li>
+<li>
+<p>
+Adding a Dependency Chain dependency. This greatly simplifies the
+entry point as you only need to add a single dependency. All transitive
+dependencies, like the version of Selenium, will be fetched for you
+automatically.
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">The order in the <code>&lt;dependencyManagement&gt;</code> section matters. The first
+version defined takes precedence. By listing Arquillian BOM <strong>before</strong>
+Arquillian Drone BOM, you encore Drone to use latest Arquillian Core.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>As for the first step, this is the same for all supported Drones:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;properties&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version.org.jboss.arquillian&gt;</span></span>1.1.11.Final<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version.org.jboss.arquillian&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version.org.jboss.arquillian.drone&gt;</span></span>2.0.1.Final<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version.org.jboss.arquillian.drone&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version.org.jboss.arquillian.graphene&gt;</span></span>2.1.0.Final<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version.org.jboss.arquillian.graphene&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/properties&gt;</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;dependencyManagement&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;dependencies&gt;</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- Arquillian Core dependencies --&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>arquillian-bom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>${version.org.jboss.arquillian}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;type&gt;</span></span>pom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/type&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>import<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- Arquillian Drone dependencies and WebDriver/Selenium dependencies --&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian.extension<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>arquillian-drone-bom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>${version.org.jboss.arquillian.drone}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;type&gt;</span></span>pom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/type&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>import<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependencies&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependencyManagement&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>If you need to use newer Selenium version than the one used by Drone,
+you can specify <code>selenium-bom</code> in the dependencyManagement part as
+well.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">If you use <code>selenium-bom</code> make sure that it is specified
+before the <code>arquillian-drone-bom</code> (or also before other BOMs that manage
+Selenium version) to make the change effective.<br />
+Example of Selenium BOM for Selenium 3.0.0-beta3</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dependencyManagement&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;dependencies&gt;</span></span>
+        ...
+        <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- Selenium BOM --&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian.selenium<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>selenium-bom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>3.0.0-beta3<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;type&gt;</span></span>pom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/type&gt;</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>import<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span>
+        ...
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependencies&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependencyManagement&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>The latter step differs based on what Drone you want to use. Include one
+of the following into the <code>&lt;dependencies&gt;</code> section:</p></div>
+<div class="paragraph"><p>To use Arquillian Graphene 2:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian.graphene<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>graphene-webdriver<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>${version.org.jboss.arquillian.graphene}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;type&gt;</span></span>pom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/type&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>test<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>To use WebDriver, also known as Selenium 2:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian.extension<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>arquillian-drone-webdriver-depchain<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>${version.org.jboss.arquillian.drone}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;type&gt;</span></span>pom<span style="font-weight: bold"><span style="color: #0000FF">&lt;/type&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>test<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">WebDriver is a subset of Graphene. You can import Graphene and not to
+use any of the Graphene features from the start. However, it would be
+super easy to add them later on.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="life-cycle-scopes-of-drone-points">Life Cycle Scopes of @Drone points</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Arquillian Drone does not allow you to control the life cycle of web
+testing framework objects, but it provides three different scopes which
+should be sufficient for most usages required by developers. These are:</p></div>
+<div class="sect2">
+<h3 id="class-scoped-life-cycle">1. Class Scoped Life Cycle</h3>
+<div class="paragraph"><p>For the Drone points with the class scoped life cycle, a configuration
+for the instance is created before a test class is run. This
+configuration is used to properly initialize an instance of the tool.
+The instance is injected into the field and holds until the last test in
+the test class is finished, then it is disposed. You can think of
+<code>@BeforeClass</code> and <code>@AfterClass</code> equivalents.</p></div>
+<div class="paragraph"><p>This scope is default scope for the field injection points. If you
+still want to declare the Drone point to be class-scoped use the
+annotation <code>@ClassLifecycle</code>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="method-scoped-life-cycle">2. Method Scoped Life Cycle</h3>
+<div class="paragraph"><p>For the Drone points with the method scoped life cycle, an instance is
+configured and created before Arquillian enters test method and it is
+destroyed after method finishes. You can think of <code>@Before</code> and <code>@After</code>
+equivalents.</p></div>
+<div class="paragraph"><p>This scope is a default scope for the method parameter injection points.
+To declare a field injection point as a method-scoped Drone point use
+the annotation <code>@MethodLifecycle</code></p></div>
+</div>
+<div class="sect2">
+<h3 id="deployment-scoped-life-cycle">3. Deployment Scoped Life Cycle</h3>
+<div class="paragraph"><p>For the Drone points with the deployment scoped life cycle, an instance
+is configured and created after an Arquillian deployment is deployed and
+it is destroyed when the deployment is about to be undeployed. You can
+think of <code>@AfterDeploy</code> and <code>@BeforeUnDeploy</code> equivalents.</p></div>
+<div class="paragraph"><p>To declare any injection point as a deployment-scoped Drone point use
+the annotation <code>@OperateOnDeployment("deployment_name")</code> with the
+specified name of the deployment the Drone point should be tied to.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">EnrichedClass</span>
+<span style="color: #FF0000">{</span>
+   @<span style="font-weight: bold"><span style="color: #000000">Deployment</span></span><span style="color: #990000">(</span>name <span style="color: #990000">=</span> <span style="color: #FF0000">"cool_deployment"</span><span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">Archive</span> <span style="font-weight: bold"><span style="color: #000000">deploy</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+      <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> ShrinkWrap<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span>Archive<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">);</span>
+   <span style="color: #FF0000">}</span>
+
+   @Drone
+   @<span style="font-weight: bold"><span style="color: #000000">OperateOnDeployment</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"cool_deployment"</span><span style="color: #990000">)</span>
+   <span style="color: #008080">WebDriver</span> foo<span style="color: #990000">;</span>
+
+   <span style="color: #990000">...</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>It is important to know that you can combine multiple instances in one
+test and you can have them in different scopes. You can as well combine
+different framework types. Following example shows class-scoped instance
+<code>foo</code> and method-scoped instance <code>baz</code> of type <code>WebDriver</code> combined with
+method-scoped <code>bar</code> of type <code>FirefoxDriver</code>.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">EnrichedClass</span>
+<span style="color: #FF0000">{</span>
+   @Drone <span style="color: #008080">WebDriver</span> foo<span style="color: #990000">;</span>
+
+   @Drone @MethodLifecycle <span style="color: #008080">WebDriver</span> baz<span style="color: #990000">;</span>
+
+   <span style="font-style: italic"><span style="color: #9A1900">// this will always retrieve FirefoxDriver, no matter what you specify in arquillian.xml file</span></span>
+   @Test
+   <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">runThisTestAlwaysWithFirefoxDriver</span></span><span style="color: #990000">(</span>@Drone <span style="color: #008080">FirefoxDriver</span> bar<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+     <span style="color: #990000">...</span>
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="sect3">
+<h4 id="keeping-multiple-drone-instances-of-the-same-field-type">Keeping Multiple Drone Instances Of The Same Field Type</h4>
+<div class="paragraph"><p>With Arquillian Drone, it is possible to keep more than one instance of
+a web test framework tool of the same type and determine which instance
+to use in a type safe way. Arquillian Drone uses the concept of a
+<code>@Qualifier</code> annotation which you may know from CDI. Drone defines its
+own <code>@Qualifier</code> meta-annotation which allows you to create your own
+annotations usable to qualify any <code>@Drone</code> injections. By default, if no
+<code>@Qualifier</code> annotation is present, Arquillian Drone implicitly uses the
+<code>@Default</code> qualifier. The following code defines a new qualifying
+annotation named <code>Different</code>.</p></div>
+<div class="paragraph"><p>Take care to not accidentally import the Qualifier annotation defined by
+CDI (<code>javax.inject.Qualifier</code>). Drone defines its own meta-annotation of
+the same name.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">package</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>drone<span style="color: #990000">.</span>example<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> java<span style="color: #990000">.</span>lang<span style="color: #990000">.</span>annotation<span style="color: #990000">.</span>ElementType<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> java<span style="color: #990000">.</span>lang<span style="color: #990000">.</span>annotation<span style="color: #990000">.</span>Retention<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> java<span style="color: #990000">.</span>lang<span style="color: #990000">.</span>annotation<span style="color: #990000">.</span>RetentionPolicy<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> java<span style="color: #990000">.</span>lang<span style="color: #990000">.</span>annotation<span style="color: #990000">.</span>Target<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>drone<span style="color: #990000">.</span>api<span style="color: #990000">.</span>annotation<span style="color: #990000">.</span>Qualifier<span style="color: #990000">;</span>
+
+@<span style="font-weight: bold"><span style="color: #000000">Retention</span></span><span style="color: #990000">(</span>RetentionPolicy<span style="color: #990000">.</span>RUNTIME<span style="color: #990000">)</span>
+@<span style="font-weight: bold"><span style="color: #000000">Target</span></span><span style="color: #990000">(</span><span style="color: #FF0000">{</span> ElementType<span style="color: #990000">.</span>FIELD<span style="color: #990000">,</span> ElementType<span style="color: #990000">.</span>PARAMETER <span style="color: #FF0000">}</span><span style="color: #990000">)</span>
+@Qualifier
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> @<span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">Different</span> <span style="color: #FF0000">{</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Once you have defined a qualifier, you can use it in your tests, for
+example in following way, having two distinct class based life cycle
+instances of <code>WebDriver</code>.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+@RunAsClient
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">EnrichedClass</span> <span style="color: #FF0000">{</span>
+   @Drone <span style="color: #008080">WebDriver</span> foo<span style="color: #990000">;</span>
+   @Drone @Different <span style="color: #008080">WebDriver</span> bar<span style="color: #990000">;</span>
+
+
+   @Test
+   <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testWithBothFooAndBar</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+     <span style="color: #990000">...</span>
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-drone-instances">Configuring Drone Instances</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Drone instances are automatically configured from arquillian.xml
+descriptor file or System properties, which take precedence. You can
+eventually omit the configuration altogether, if you are happy with the
+default values. Obviously, configurations are compatible with @Qualifier
+annotations, so you can create a special configuration for a method
+based life cycle browser if you will.</p></div>
+<div class="paragraph"><p>Extension qualifier must match the value listed in configuration.
+Otherwise Drone won&#8217;t pick the configuration.</p></div>
+<div class="sect2">
+<h3 id="default-drone-configuration">Default Drone Configuration</h3>
+<div class="paragraph"><p>Drone global configuration is applied for all supported frameworks at
+the same time. It uses <code>drone</code> extension qualifier.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"drone"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"instantiationTimeoutInSeconds"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>120<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Default Value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">instantiationTimeoutInSeconds</p></td>
+<td align="left" valign="top"><p class="table">60</p></td>
+<td align="left" valign="top"><p class="table">Default timeout in seconds to get instance of a browser. Set to <code>0</code> if
+you want to disable the timeout altogether</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="webdriver-configuration">WebDriver configuration</h3>
+<div class="paragraph"><p>WebDriver uses <code>webdriver</code> qualifier.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"webdriver"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"browser"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>firefox<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Default Value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">browser</p></td>
+<td align="left" valign="top"><p class="table">htmlUnit</p></td>
+<td align="left" valign="top"><p class="table">Determines which browser instance is created for WebDriver testing.</p>
+<p class="table">Following values are valid:</p>
+<p class="table">. chrome<br />
+. firefox<br />
+. htmlUnit<br />
+. internetExplorer<br />
+. opera<br />
+. phantomjs<br />
+. safari<br /></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">iePort</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Default port where to connect for Internet Explorer driver</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">remoteAddress</p></td>
+<td align="left" valign="top"><p class="table"><a href="http://localhost:14444/wd/hub">http://localhost:14444/wd/hub</a></p></td>
+<td align="left" valign="top"><p class="table">Default address for remote driver to connect</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">remoteReusable</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">The flag which indicates that remote session should be reused between
+subsequent executions - gives opportunity to reuse browser window for
+debugging and/or test execution speed-up.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">reuseCookies</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">If you are using remote reusable browser, you can force it to reuse
+cookies</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">chromeDriverBinary</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to chromedriver binary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ieDriverBinary</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to Internet Explorer driver binary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firefoxExtensions</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path or multiple paths to xpi files that will be installed into Firefox
+instance as extensions. Separate paths using space, use quotes in case
+that path contains spaces</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firefox_profile</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to Firefox Profile to be used instead of default one delivered with
+FirefoxDriver</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firefoxUserPreferences</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to Firefox user preferences. This file will be parsed and values
+will be applied to freshly created Firefox profile.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">dimensions</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Dimensions of browser window in <code>widthxheight</code> format. This will resize
+the window if supported by underlying browser. Useful for <strong>phantomjs</strong>,
+which by default defines a very small viewport</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>If you need to enable any
+<a href="http://code.google.com/p/selenium/wiki/DesiredCapabilities">browser
+capability</a>, simply specify it as a property in extension configuration.
+For instance, if you are running Firefox browser and you want to change
+the binary location, you can do it via following code:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"webdriver"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"firefox_binary"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>/path/to/firefox<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>We have enabled JavaScript for <strong>htmlUnit</strong> driver by default. If you want
+to disable it, configure appropriate capability to false:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"javascriptEnabled"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>false<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>WebDriver expects a Java Object stored in Capabilities settings for some
+of the WebDriver capabilities. Therefore, we provide a simple mappings
+to text format for some properties described in table below.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">loggingPrefs</p></td>
+<td align="left" valign="top"><p class="table">Comma separated list of logging levels for FirefoxDriver. Use
+driver=${value1},profiler=${value2} where value is one of the
+following: SEVERE, WARNING, INFO, CONFIG, FINE, FINER or FINEST</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphene-2-configuration">Graphene 2 Configuration</h3>
+<div class="paragraph"><p>Graphene 2 reuses configuration specified for WebDriver, using
+<code>webdriver</code> qualifier. You can additionally use a
+<a href="https://docs.jboss.org/author/display/ARQGRA2/Graphene+Configuration">Arquillian
+Graphene 2 configuration</a> to set Graphene specific configuration, such
+as default UI timeouts.</p></div>
+</div>
+<div class="sect2">
+<h3 id="selenium-server-configuration">Selenium Server Configuration</h3>
+<div class="paragraph"><p>Selenium Server uses <code>selenium-server</code> qualifier.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"selenium-server"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"host"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>myhost.org<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Default Value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">avoidProxy</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Do not use proxy for connection between clients and server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">browserSessionReuse</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Reuse browser session</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">browserSideLog</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable logging in browser window</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">debug</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable debug messages</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">dontTouchLogging</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Disable Selenium specific logging configuration</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ensureCleanSession</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Automatic cleanup of the session</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firefoxProfileTemplate</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to the profile used as a template</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">forcedBrowserMode</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Mimic browser mode no matter which one is used to start the client</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">honorSystemProxy</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Use system proxy for connections</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">host</p></td>
+<td align="left" valign="top"><p class="table">localhost</p></td>
+<td align="left" valign="top"><p class="table">Name of the machine where to start Selenium Server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">logFile</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to log file</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">nonProxyHosts</p></td>
+<td align="left" valign="top"><p class="table">value of <code>http.nonProxyHosts</code> property</p></td>
+<td align="left" valign="top"><p class="table">List of hosts where proxy settings are ignored</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">port</p></td>
+<td align="left" valign="top"><p class="table">14444</p></td>
+<td align="left" valign="top"><p class="table">Port on machine where to start Selenium Server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">profilesLocation</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Where profiles are located</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">proxyHost</p></td>
+<td align="left" valign="top"><p class="table">value of <code>http.proxyHost</code> property</p></td>
+<td align="left" valign="top"><p class="table">Name of proxy server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">proxyInjectionMode</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Use proxy approach between Selenium server and client</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">proxyPort</p></td>
+<td align="left" valign="top"><p class="table">value of <code>http.proxyPort</code> property</p></td>
+<td align="left" valign="top"><p class="table">Port of proxy server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">retryTimeoutInSeconds</p></td>
+<td align="left" valign="top"><p class="table">10</p></td>
+<td align="left" valign="top"><p class="table">Timeout for commands to be retried</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">singleWindow</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Use single window</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">skip</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Do not manage Selenium Server lifecycle</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">systemProperties</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Arbitrary system properties in -Dproperty.name=property.value format</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timeoutInSeconds</p></td>
+<td align="left" valign="top"><p class="table">Integer.MAX_VALUE</p></td>
+<td align="left" valign="top"><p class="table">Timeout for Selenium Server</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">trustAllSSLCertificates</p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Trust all SSL certificates</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">trustStore</p></td>
+<td align="left" valign="top"><p class="table">value of <code>javax.net.ssl.trustStore</code> property</p></td>
+<td align="left" valign="top"><p class="table">Trust store path</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">trustStorePassword</p></td>
+<td align="left" valign="top"><p class="table">value of <code>javax.net.ssl.trustStorePassword</code> property</p></td>
+<td align="left" valign="top"><p class="table">Trust store password</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">userExtensions</p></td>
+<td align="left" valign="top"><p class="table">-</p></td>
+<td align="left" valign="top"><p class="table">Path to user extension files</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>Selenium Server has different life cycle than Drone instances, it is
+created and started before test suite and disposed after test suite.
+Note, you need Selenium Server only if you plan to use remote and
+reusable instances of WebDriver.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">If you have your own Selenium Server instance running, you need either
+to remove Drone Selenium Server extension from the classpath, set it to
+a different host/port or disable its execution via skip=true.</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extended-configuration-configuring-qualifierd-drone-instances">Extended Configuration, Configuring @Qualifier&#8217;d Drone Instances</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If you are wondering how to define configuration for <code>@Qualifier</code>
+<code>@Drone</code> instance, it&#8217;s very easy. Only modification you have to do is
+to change qualifier to include - (<code>@Qualifier</code> annotation name converted
+to lowercase). For instance, if you qualified Arquillian Graphene
+instance with @MyExtraBrowser, its extension qualifier will become
+<strong>graphene-myextrabrowser</strong>.</p></div>
+<div class="paragraph"><p>Arquillian Drone configures your browser using two-step process:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Search for the exact match of qualifier (e.g.
+<code>graphene-myextrabrowser</code>) in arquillian.xml, if found, step 2 is not
+performed.
+</p>
+</li>
+<li>
+<p>
+Search for a match of base qualifier, without type safe <code>@Qualifier</code>
+(e.g. <code>graphene</code>) in arquillian.xml.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Then System property are applied in the same fashion.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquillian-drone-spi">Arquillian Drone SPI</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The big advantage of Arquillian Drone extension is its flexibility. We
+provide you reasonable defaults, but if they are not sufficient or if
+they do not fulfill your needs, you can change them. You can change the
+behavior of existing implementation or implement a support for your own
+testing framework as well.</p></div>
+<div class="sect2">
+<h3 id="event-model">Event Model</h3>
+<div class="paragraph"><p>Drone itself is not using Arquillian Container related event, which
+means that it is able to work with Arquillian Standalone test runners.
+Arquillian Drone itself observes following events:</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Arquillian Event </th>
+<th align="left" valign="top">Drone Default Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeSuite</p></td>
+<td align="left" valign="top"><p class="table">Drone creates a registry with all Drone SPI implementation on the
+classpath<br />
+Drone creates a global configuration<br />
+Drone configures Selenium Server<br />
+Drone registers all Browser Capabilities implementation on the
+classpath<br />
+Drone creates a registry for session reuse</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeClass</p></td>
+<td align="left" valign="top"><p class="table">Drone creates a configuration and future instance for Drone points with
+class scoped life cycle</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDeploy</p></td>
+<td align="left" valign="top"><p class="table">Drone creates a configuration and future instance for Drone points with
+deployment scoped life cycle</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Before</p></td>
+<td align="left" valign="top"><p class="table">Drone creates a configuration for instances with method scoped life
+cycle<br />
+Drone converts a Drone instance callable into a real Drone instance<br />
+Drone enhances Drone instances</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">After</p></td>
+<td align="left" valign="top"><p class="table">Drone destroys an instance of method scoped Drone points</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterClass</p></td>
+<td align="left" valign="top"><p class="table">Drone destroys an instance of class scoped Drone points</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeUnDeploy</p></td>
+<td align="left" valign="top"><p class="table">Drone destroys an instance of deployment scoped Drone points</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterSuite</p></td>
+<td align="left" valign="top"><p class="table">Drone destroys Selenium Server instance</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>Arquillian Drone fires following events you can observe in your
+extension:</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Arquillian Drone fired event </th>
+<th align="left" valign="top">When is this event fired?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDroneExtensionConfigured</p></td>
+<td align="left" valign="top"><p class="table">Fired before the global configuration is prepared</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDronePrepared</p></td>
+<td align="left" valign="top"><p class="table">Fired after Drone configuration and Drone callable instance are created
+and stored in the context</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDroneInstantiated</p></td>
+<td align="left" valign="top"><p class="table">Fired after Drone instance callable is converted into real Drone
+instance</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDroneEnhanced</p></td>
+<td align="left" valign="top"><p class="table">Fired after Drone instance is enhanced by an
+<code>DroneInstanceEnhancer and a window is resized (if requested)</code></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDroneDeenhanced</p></td>
+<td align="left" valign="top"><p class="table">Fired after Drone instance is deenhanced by an <code>DroneInstanceEnhancer</code></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AfterDroneDestroyed</p></td>
+<td align="left" valign="top"><p class="table">Fired after Drone instance is destroyed</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDroneExtensionConfigured</p></td>
+<td align="left" valign="top"><p class="table">Fired before the global configuration is prepared</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDronePrepared</p></td>
+<td align="left" valign="top"><p class="table">Fired before Drone configuration and Drone callable instance are created</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDroneInstantiated</p></td>
+<td align="left" valign="top"><p class="table">Fired before Drone instance callable is converted into real Drone
+instance</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDroneEnhanced</p></td>
+<td align="left" valign="top"><p class="table">Fired before Drone instance is enhanced by an <code>DroneInstanceEnhancer</code></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDroneDeenhanced</p></td>
+<td align="left" valign="top"><p class="table">Fired before Drone instance is deenhanced by an <code>DroneInstanceEnhancer</code></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">BeforeDroneDestroyed</p></td>
+<td align="left" valign="top"><p class="table">Fired before the Drone instance will be destroyed</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">DroneAugmented</p></td>
+<td align="left" valign="top"><p class="table">Fired after WebDriver instance is augmented to support more features.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">Events provide a class hierarchy, so you can observe their super classes
+if you want.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="working-with-drone-instances">Working with Drone Instances</h3>
+<div class="paragraph"><p>If you want to support another testing framework and manage it&#8217;s
+lifecycle, you should implement following interfaces and register them
+in your own Arquillian Extension.</p></div>
+<div class="paragraph"><p>Drone Factory SPI:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Configurator&lt;T, C&gt;<br />
+Provides a way how to configure configurations of type C for <code>@Drone</code>
+object of type T
+</p>
+</li>
+<li>
+<p>
+Instantiator&lt;T, C&gt;<br />
+Provides a way how to instantiate <code>@Drone</code> object of type T with
+configuration C
+</p>
+</li>
+<li>
+<p>
+Destructor&lt;T&gt;<br />
+Provides a way how to dispose <code>@Drone</code> object of type T
+</p>
+</li>
+<li>
+<p>
+DroneInstanceEnhancer&lt;T&gt;<br />
+Provides a way how to enhance <code>Drone</code> object of type T with additional
+functionality. All enhancers available on class path and compatible with
+current Drone type are always applied.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Drone Context SPI:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+DroneConfiguration<br />
+This is effectively a marker for configuration of type C
+</p>
+</li>
+<li>
+<p>
+DronePoint<br />
+An unique description of a Drone in a code.
+</p>
+</li>
+<li>
+<p>
+DroneRegistry<br />
+</p>
+</li>
+<li>
+<p>
+DronePointContext<br />
+A unique holder for configuration, callable instance and metadata of
+each Drone point.
+</p>
+</li>
+<li>
+<p>
+DroneContext<br />
+</p>
+</li>
+<li>
+<p>
+InstanceOrCallableInstance<br />
+Holder for any object in DroneContext. It allows to hold both real
+instance and callable instance in union like manner. It is also used to
+hold Drone related configuration, which is always instantiated
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Drone WebDriver SPI:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+BrowserCapabilitiesRegistry<br />
+Container for all registered WebDriver browser capabilities
+</p>
+</li>
+<li>
+<p>
+BrowserCapabilities<br />
+Implementation of browser implementation for <code>WebDriver</code>
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">Implementations of Configurator, Instantiator and Destructor are
+searched on the class path and they are sorted according to precedence
+they declare. Default implementation has precedence of 0, so if your
+implementation has a higher precedence and instantiates the exact type,
+Arquillian Drone will use it instead of default variant. This provides
+you the ultimate way how to change behavior if desired. Of course, you
+can provide support for your own framework in the very same way, so in
+your test you can use <code>@Drone</code> annotation to inject instances of
+arbitrary web testing framework.</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-03-14 19:23:23 IST
+</div>
+</div>
+</body>
+</html>

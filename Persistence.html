@@ -1,0 +1,1624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Persistence</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Persistence</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>Arquillian Persistence Extension</strong> is created to help you writing tests
+where persistence layer is involved.<br />
+It comes with following features:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Wrapping each test in the separated transaction.
+</p>
+</li>
+<li>
+<p>
+Seeding database using:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://dbunit.sourceforge.net">DBUnit</a> with <strong>XML</strong>, <strong>XLS</strong>, <strong>YAML</strong> and
+<strong>JSON</strong> supported as data sets format.
+</p>
+</li>
+<li>
+<p>
+Custom SQL scripts.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Comparing database state at the end of the test using given data sets
+(with column exclusion).
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-it-in-action">See It In Action</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Arquillian-powered test with Persistence Extension</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">UserPersistenceTest</span> <span style="color: #FF0000">{</span>
+
+    @Deployment
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">Archive&lt;?&gt;</span> <span style="font-weight: bold"><span style="color: #000000">createDeploymentPackage</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> ShrinkWrap<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span>JavaArchive<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"test.jar"</span><span style="color: #990000">)</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addPackage</span></span><span style="color: #990000">(</span>UserAccount<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPackage</span></span><span style="color: #990000">())</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsManifestResource</span></span><span style="color: #990000">(</span>EmptyAsset<span style="color: #990000">.</span>INSTANCE<span style="color: #990000">,</span> <span style="color: #FF0000">"beans.xml"</span><span style="color: #990000">)</span>
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addAsManifestResource</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"test-persistence.xml"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"persistence.xml"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    @PersistenceContext
+    <span style="color: #008080">EntityManager</span> em<span style="color: #990000">;</span>
+
+    @Test
+    @<span style="font-weight: bold"><span style="color: #000000">UsingDataSet</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"datasets/users.yml"</span><span style="color: #990000">)</span>
+    @<span style="font-weight: bold"><span style="color: #000000">ShouldMatchDataSet</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"datasets/expected-users.yml"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">should_change_user_password</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">throws</span></span> Exception <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">// given</span></span>
+        <span style="color: #008080">String</span> expectedPassword <span style="color: #990000">=</span> <span style="color: #FF0000">"LexLuthor"</span><span style="color: #990000">;</span>
+        <span style="color: #008080">UserAccount</span> user <span style="color: #990000">=</span> em<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">find</span></span><span style="color: #990000">(</span>UserAccount<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> <span style="color: #993399">2L</span><span style="color: #990000">);</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// when</span></span>
+        user<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setPassword</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"LexLuthor"</span><span style="color: #990000">);</span>
+        user <span style="color: #990000">=</span> em<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">merge</span></span><span style="color: #990000">(</span>user<span style="color: #990000">);</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// then</span></span>
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>expectedPassword<span style="color: #990000">,</span> user<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPassword</span></span><span style="color: #990000">());</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">users.yml</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>useraccount<span style="color: #990000">:</span>
+  <span style="color: #990000">-</span> id<span style="color: #990000">:</span> <span style="color: #993399">1</span>
+    firstname<span style="color: #990000">:</span> John
+    lastname<span style="color: #990000">:</span> Smith
+    username<span style="color: #990000">:</span> doovde
+    password<span style="color: #990000">:</span> password
+  <span style="color: #990000">-</span> id<span style="color: #990000">:</span> <span style="color: #993399">2</span>
+    firstname<span style="color: #990000">:</span> Clark
+    lastname<span style="color: #990000">:</span> Kent
+    username<span style="color: #990000">:</span> superman
+    password<span style="color: #990000">:</span> kryptonite</tt></pre></div></div>
+<div class="listingblock">
+<div class="title">expected-users.yml</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>useraccount<span style="color: #990000">:</span>
+  <span style="color: #990000">-</span> firstname<span style="color: #990000">:</span> John
+    lastname<span style="color: #990000">:</span> Smith
+    username<span style="color: #990000">:</span> doovde
+    password<span style="color: #990000">:</span> password
+  <span style="color: #990000">-</span> firstname<span style="color: #990000">:</span> Clark
+    lastname<span style="color: #990000">:</span> Kent
+    username<span style="color: #990000">:</span> superman
+    password<span style="color: #990000">:</span> LexLuthor</tt></pre></div></div>
+<div class="paragraph"><p>There are just two things which are different from the standard
+Arquillian test - <code>@UsingDataSet</code> and <code>@ShouldMatchDataSet annotations</code>.
+Former seeds the database using file in
+<a href="http://en.wikipedia.org/wiki/YAML">YAML</a> format, and latter verifies
+database state using given file. Read on to learn more about the
+features offered by <strong>Arquillian Persistence Extension</strong>. If you want to
+see more core have a look at
+<a href="https://github.com/arquillian/arquillian-showcase/tree/master/jpa-persistence-extension">our
+showcase on Github</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transactional-tests">Transactional Tests</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Adding transaction support to your tests is pretty straightforward. If
+that&#8217;s only what you need simply put <code>@Transactional</code> annotation
+either on the test which you want be wrapped in transaction or on the
+test class which will result with all tests running in their
+transactions. Following modes are supported:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>COMMIT</code>. Each test will be finished with <code>commit</code> operation. This is
+<strong>default</strong> behaviour.
+</p>
+</li>
+<li>
+<p>
+<code>ROLLBACK</code>. At the end of the test execution <code>rollback</code> will be
+performed
+</p>
+</li>
+<li>
+<p>
+<code>DISABLED</code>. If you have enabled transactional support on the test
+class level, marking given test with this mode will simply run it
+without the transaction.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="seeding-database">Seeding Database</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Creating ad-hoc object graphs in the test code is often too verbose and
+makes it harder to read the tests. Arquillian Persistence Extension
+provides alternatives to set database fixtures to be used for the given
+test.</p></div>
+<div class="sect2">
+<h3 id="data-sets">Data Sets</h3>
+<div class="paragraph"><p>If you are familiar with <a href="http://dbunit.sourceforge.net">DBUnit</a> you already know the
+concept of data sets. In brief data sets are files containing rows to be
+inserted to the database. In order to seed your database using data set
+file put <code>@UsingDataSet</code> annotation either on the test itself or on the
+class level. If there is definition on both, test level annotation takes
+precedence. In addition you can specify files location in the annotation
+(default folder is "datasets/". Refer to <a href="#dbunit-specific-settings">DBUnit configuration section</a> to see how can you customize it). If files are
+not specified explicitly, following strategy is applied:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+It&#8217;s assumed that files are stored in <code>datasets</code> folder on classpath
+(or any other you have configured as default location).
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on method level, file name has following
+format:
+<code>[fully qualified class name]#[test method name].[default format]</code>.
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on class level, file name has following
+format: <code>[fully qualified class name].[default format]</code>.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Where <code>default format</code> is XML, but <a href="#dbunit-specific-settings">can be also customized</a>.</p></div>
+<div class="paragraph"><p>Arquillian Persistence Extension handles following formats available out
+of the box in DBUnit:</p></div>
+<div class="sect3">
+<h4 id="flat-xml-data-set">Flat XML Data Set</h4>
+<div class="paragraph"><p>Simple XML format where each element represents rows in the given table
+and attributes names corresponds to its columns. You can also explicitly
+set <code>null</code> value for the given column, by simply using <code>[null]</code> keyword,
+as illustrated below.</p></div>
+<div class="paragraph"><p>Flat XML Data Set</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dataset&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;useraccount</span></span> <span style="color: #009900">id</span><span style="color: #990000">=</span><span style="color: #FF0000">"1"</span> <span style="color: #009900">firstname</span><span style="color: #990000">=</span><span style="color: #FF0000">"Clark"</span> <span style="color: #009900">lastname</span><span style="color: #990000">=</span><span style="color: #FF0000">"Kent"</span> <span style="color: #009900">username</span><span style="color: #990000">=</span><span style="color: #FF0000">"ckent"</span> <span style="color: #009900">password</span><span style="color: #990000">=</span><span style="color: #FF0000">"LexLuthor123"</span> <span style="color: #009900">nickname</span><span style="color: #990000">=</span><span style="color: #FF0000">"[null]"</span> <span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dataset&gt;</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="excel-spreadsheets">Excel Spreadsheets</h4>
+<div class="paragraph"><p>Another format supported out of the box by DBUnit. In order to use it
+follow these conventions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Each table should have dedicated sheet within the Excel file.
+</p>
+</li>
+<li>
+<p>
+First row should contain column labels.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Have a look at the
+<a href="https://github.com/arquillian/arquillian-extension-persistence/blob/master/int-tests/src/test/resources-datasets/datasets/single-user.xls">example</a>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="yaml-and-json">YAML and JSON</h4>
+<div class="paragraph"><p>In addition to the format supported out of the box by DBUnit, Arquillian
+Persistence Extension provides alternative way to describe your data
+sets either by using YAML or JSON. Those formats are a bit more readable
+for the human (and for machines too!). So instead of hand-crafting XML
+or Excel files you can do define your data sets in
+<a href="http://en.wikipedia.org/wiki/YAML">YAML</a>:</p></div>
+<div class="paragraph"><p>Data set described in YAML</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>useraccount<span style="color: #990000">:</span>
+  <span style="color: #990000">-</span> id<span style="color: #990000">:</span> <span style="color: #993399">1</span>
+    firstname<span style="color: #990000">:</span> Clark
+    lastname<span style="color: #990000">:</span> Kent
+    username<span style="color: #990000">:</span> ckent
+    password<span style="color: #990000">:</span> LexLuthor123
+    nickname<span style="color: #990000">:</span> <span style="color: #FF0000">"[null]"</span></tt></pre></div></div>
+<div class="paragraph"><p>or in <a href="http://en.wikipedia.org/wiki/JavaScript_Object_Notation">JSON</a>:</p></div>
+<div class="paragraph"><p>Data set described in JSON</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #FF0000">{</span>
+  <span style="color: #FF0000">"useraccount"</span><span style="color: #990000">:</span>
+  <span style="color: #990000">[</span>
+    <span style="color: #FF0000">{</span>
+      <span style="color: #FF0000">"id"</span><span style="color: #990000">:</span> <span style="color: #FF0000">"1"</span><span style="color: #990000">,</span>
+      <span style="color: #FF0000">"firstname"</span> <span style="color: #990000">:</span> <span style="color: #FF0000">"Clark"</span><span style="color: #990000">,</span>
+      <span style="color: #FF0000">"lastname"</span> <span style="color: #990000">:</span> <span style="color: #FF0000">"Kent"</span><span style="color: #990000">,</span>
+      <span style="color: #FF0000">"username"</span> <span style="color: #990000">:</span> <span style="color: #FF0000">"ckent"</span><span style="color: #990000">,</span>
+      <span style="color: #FF0000">"password"</span> <span style="color: #990000">:</span> <span style="color: #FF0000">"LexLuthor123"</span><span style="color: #990000">,</span>
+      <span style="color: #FF0000">"nickname"</span> <span style="color: #990000">:</span> <span style="color: #FF0000">"[NULL]"</span>
+    <span style="color: #FF0000">}</span>
+  <span style="color: #990000">]</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="schema-creation">Schema Creation</h3>
+<div class="paragraph"><p>If you want to use custom SQL scripts for schema creation you can
+decorate your test using <code>@CreateSchema</code> annotation providing list of
+scripts you want to execute before test class. They will be executed
+only once. By convention such scripts will be first looked in <strong>schema</strong>
+folder, but you can also provide full path if you wish.</p></div>
+</div>
+<div class="sect2">
+<h3 id="custom-sql-scripts">Custom SQL Scripts</h3>
+<div class="paragraph"><p>If you want you can also use seed your database using plain SQL (or
+execute any other action directly on the database level). To achieve it
+simply put <code>@ApplyScriptBefore</code> or <code>@ApplyScriptAfter</code> annotation either
+directly on your test method or on the test class. Scripts will be
+executed before or after test method accordingly. If there is definition
+on both, test level annotation takes precedence.</p></div>
+<div class="paragraph"><p>By convention Arquillian Persistence Extension will look for these
+scripts in the <strong>scripts</strong> folder (in a Maven project, that&#8217;s typically
+<code>src/test/resources/scripts</code> in the source tree), but you can customize
+it as you wish - see <a href="#general-settings">configuration section</a> how to do it. You can also specify files location in the
+annotation, the same way as you can do with DBUnit data sets. If files
+are not specified explicitly, following strategy is applied:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+It&#8217;s assumed that files are stored in <code>scripts</code> folder (or any other
+you have configured as default location).
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on method level, file name has following
+format:
+<code>[before|after]-[fully qualified class name]#[test method name].sql</code>.
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on class level, file name has following
+format: <code>[before|after]-[fully qualified class name].sql</code>.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verfying-database-content-after-the-test">Verifying Database Content After The Test</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Sometimes it might be a bit cumbersome to assert database state directly
+from your testing code. Especially when you change quite a lot in the
+database tables you might want to validate values directly in the
+database. By using DBUnit you can use the same data sets approach. Put
+<code>@ShouldMatchDataSet</code> annotation either on the test method or your test
+class and Arquillian Persistence Extension will use all these files
+together to check if database contains entries you are expecting after
+test execution. Again, by convention it first looks for the files in
+<code>datasets</code> folder. If you don&#8217;t provide file names in the annotation
+itself following rules are applied:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+It&#8217;s assumed that files are stored in <code>datasets</code> folder (or any other
+you have configured as default location).
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on method level, file name has following
+format
+<code>expected-[fully qualified class name]#[test method name].[default format]</code>
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on class level, file name has following
+format <code>expected-[fully qualified class name].[default format].</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Where <code>default format</code> is XML, but <a href="#dbunit-specific-settings">can be also customized</a>.</p></div>
+<div class="paragraph"><p>In addition you can also specify which columns should not be used for
+comparision. This might be handy if you export large datasets directly
+from the database using tools like
+<a href="http://jailer.sourceforge.net/">Jailer</a> and you don&#8217;t want to compare
+surrogate keys (database generated ids). You can specify these columns
+in the annotation:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">ShouldMatchDataSet</span></span><span style="color: #990000">(</span>value <span style="color: #990000">=</span> <span style="color: #FF0000">"expected-users.yml"</span><span style="color: #990000">,</span> excludeColumns <span style="color: #990000">=</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">"id"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"creationDate"</span><span style="color: #FF0000">}</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>To determine order of data sets comparison you can use <code>orderBy</code>
+attribute:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">ShouldMatchDataSet</span></span><span style="color: #990000">(</span>value <span style="color: #990000">=</span> <span style="color: #FF0000">"expected-users.yml"</span><span style="color: #990000">,</span> orderBy <span style="color: #990000">=</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">"id""})</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="data-insert-strategies">Data Insert Strategies</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>DBUnit, and hence Arquillian Persistence Extension, provides following
+strategies for inserting data</p></div>
+<div class="sect2">
+<h3 id="insert">INSERT</h3>
+<div class="paragraph"><p>Performs insert of the data defined in provided data sets. This is the
+default strategy.</p></div>
+</div>
+<div class="sect2">
+<h3 id="clean_insert">CLEAN_INSERT</h3>
+<div class="paragraph"><p>Performs insert of the data defined in provided data sets, after removal
+of all data present in the tables (DELETE_ALL invoked by DBUnit before
+INSERT).</p></div>
+</div>
+<div class="sect2">
+<h3 id="refresh">REFRESH</h3>
+<div class="paragraph"><p>During this operation existing rows are updated and new ones are
+inserted. Entries already existing in the database which are not defined
+in the provided data set are not affected.</p></div>
+</div>
+<div class="sect2">
+<h3 id="update">UPDATE</h3>
+<div class="paragraph"><p>This strategy updates existing rows using data provided in the datasets.
+If dataset contain a row which is not present in the database
+(identified by its primary key) then exception is thrown.</p></div>
+<div class="paragraph"><p>Data seeding strategy can be specified globally in <code>arquillian.xml</code>.
+Please refer to the <a href="#general-settings">configuration section</a> for the details.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cleaning-your-data">Cleaning Your Data</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="dbunit-cleanup-modes">DBUnit Cleanup Modes</h3>
+<div class="paragraph"><p>Arquillian Persistence Extension comes with great degree of
+configuration. In combination with data sets which you use to seed the
+database you can also specify when and how you would like your database
+to be cleaned. By default your database is entirely erased before each
+test. If you want to control this behavior, use <code>@Cleanup</code> annotation
+for this purpose. You can define it on the test method level or globally
+by decorating test class. Following modes are currently supported:</p></div>
+<div class="sect3">
+<h4 id="strict">STRICT</h4>
+<div class="paragraph"><p>Cleans the entire database. This strategy might require turning off
+database constraints (e.g. referential integrity).</p></div>
+</div>
+<div class="sect3">
+<h4 id="used_rows_only">USED_ROWS_ONLY</h4>
+<div class="paragraph"><p>Deletes only those entries which were defined in data sets used for
+seeding.</p></div>
+</div>
+<div class="sect3">
+<h4 id="used_tables_only">USED_TABLES_ONLY</h4>
+<div class="paragraph"><p>Deletes only those tables which were used in data sets.</p></div>
+<div class="paragraph"><p>You can also specify when you would like to invoke the cleanup
+procedure. For instance:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Cleanup</span></span><span style="color: #990000">(</span>phase <span style="color: #990000">=</span> TestExecutionPhase<span style="color: #990000">.</span>AFTER<span style="color: #990000">,</span> strategy <span style="color: #990000">=</span> CleanupStrategy<span style="color: #990000">.</span>USED_ROWS_ONLY<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>You can invoke it <code>BEFORE</code> or <code>AFTER</code> the test. You can also disable
+cleanup by using <code>TestExecutionPhase.NONE</code>.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-custom-sql-scripts-for-cleanup">Using Custom SQL Scripts For Cleanup</h3>
+<div class="paragraph"><p>You can also use custom SQL scripts to clean your database before or
+after the test. For this purpose use <code>@CleanupUsingScript</code> annotation
+and specifies SQL files which have to be executed. If you don&#8217;t provide
+file names in the annotation itself following rules are applied:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+It&#8217;s assumed that files are stored in <code>scripts</code> folder (or any other
+you have configured as default location).
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on method level, file name has following
+format <code>cleanup-[fully qualified class name]#[test method name].sql</code>
+</p>
+</li>
+<li>
+<p>
+If annotation is defined on class level, file name has following
+format <code>cleanup-[fully qualified class name].sql</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The same way as with DBUnit cleanup you can also define test phase when
+it should take place.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="other-goodies">Other Goodies</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+You can use scriptsToExecuteBeforeTest and
+scriptsToExecuteAfterTest scripts to turn off and bring back referential
+integrity checks for each tests using single, global definition
+externalized from the test class. This way your tests are portable and
+you can use different profiles with database specific <code>arquillian.xml</code>
+configurations transparently.
+</p>
+</li>
+<li>
+<p>
+You can dump database content for each test execution and use it later
+for debugging purposes.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>See following section for details how to configure those features.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="additional-configuration">Additional Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>Arquillian Persistence Extension</strong> can be customized in the similar way
+as any other components from Arquillian ecosystem - through
+<code>&lt;extension&gt;</code> elements defined in <code>arquillian.xml</code>. Following sections
+describe all possible settings which you can use to tweak the extension
+for your environment.</p></div>
+<div class="paragraph"><p>Transaction management is delegated to Transaction Extension as of
+1.0.0.Alpha6 version. Therefore if you want to specify JNDI for the
+<code>UserTransaction</code>, please use following snippet in the <code>arquillian.xml</code>:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"transaction"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"manager"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>java:jboss/UserTransaction<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="sect2">
+<h3 id="general-settings">General Settings</h3>
+<div class="paragraph"><p>You can customize <strong>Arquillian Persistence Extension</strong> configuration in
+<code>arquillian.xml</code> by adding following element:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"persistence"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"defaultDataSource"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>java:app/datasources/mssql_ds<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p><strong>List of all available properties</strong></p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Default Value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultDataSource</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Name of the default data source used to interact with the database
+(seeding, comparing etc). Required if not specified by using
+<code>@DataSource</code> annotation.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultTransactionMode</code></p></td>
+<td align="left" valign="top"><p class="table">COMMIT</p></td>
+<td align="left" valign="top"><p class="table">Transaction mode for running the tests if not specified explicitly by
+using <code>@Transactional</code>. Possible values: COMMIT, ROLLBACK or DISABLED.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>dumpData</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enables database state dumping in following phases BEFORE_SEED,
+AFTER_SEED, BEFORE_CLEAN, AFTER_CLEAN. Might be handy for debugging.
+(Boolean.)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>dumpDirectory</code></p></td>
+<td align="left" valign="top"><p class="table">OS-specific tmp directory defined in <code>java.io.tmpdir</code></p></td>
+<td align="left" valign="top"><p class="table">Folder where all database dumps will be stored.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultCleanupPhase</code></p></td>
+<td align="left" valign="top"><p class="table">AFTER</p></td>
+<td align="left" valign="top"><p class="table">Defines default cleanup phase. Possible values: BEFORE, AFTER, NONE. If
+not defined on the test method or class level this setting is used.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultCleanupStrategy</code></p></td>
+<td align="left" valign="top"><p class="table">STRICT</p></td>
+<td align="left" valign="top"><p class="table">Defines strategy of cleaning database content for the test. Possible
+values: STRICT, USED_ROWS_ONLY or USED_TABLES_ONLY. If not defined on
+the test method or class level this setting is used.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultDataSeedStrategy</code></p></td>
+<td align="left" valign="top"><p class="table">INSERT</p></td>
+<td align="left" valign="top"><p class="table">Defines strategy of inserting data to the database. Possible values:
+INSERT, CLEAN_INSERT, UPDATE or REFRESH.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dbunit-specific-settings">DBUnit Specific Settings</h3>
+<div class="paragraph"><p><strong>Arquillian Persistence Extension</strong> provides a way to customize
+underlying behaviour of DBUnit
+(<a href="http://dbunit.sourceforge.net/properties.html">exposed as properties and
+features</a>) and some other customizations.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"persistence-dbunit"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"datatypeFactory"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>org.dbunit.ext.mssql.MsSqlDataTypeFactory<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"useIdentityInsert"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>true<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"excludePoi"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>true<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p><strong>List of all available properties</strong></p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property Name </th>
+<th align="left" valign="top">Default Value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultDataSetLocation</code></p></td>
+<td align="left" valign="top"><p class="table">"datasets/"</p></td>
+<td align="left" valign="top"><p class="table">Folder where all datasets are located.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultDataSetFormat</code></p></td>
+<td align="left" valign="top"><p class="table">XML</p></td>
+<td align="left" valign="top"><p class="table">Default format of data sets when file name is inferred from test method
+name, when file is not specified in <code>@UsingDataSet</code> or
+<code>@ShouldMatchDataSet</code>. Other supported formats are EXCEL, YAML and JSON.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>excludePoi</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Excludes Apache POI from packaging process, which results in slimier
+deployment. If you are not using Excel datasets you can safely turn it
+off.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>batchedStatements</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable or disable usage of JDBC batched statement by DBUnit.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>caseSensitiveTableNames</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable or disable case sensitive table names. If enabled, DBUnit handles
+all table names in a case sensitive way.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>qualifiedTableNames</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable or disable multiple schemas support. If enabled, DBUnit access
+tables with names fully qualified by schema using this format:
+SCHEMA.TABLE.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>datatypeWarning</code></p></td>
+<td align="left" valign="top"><p class="table">true</p></td>
+<td align="left" valign="top"><p class="table">Enable or disable the warning message displayed when DBUnit encounter an
+unsupported data type.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>skipOracleRecycleBinTables</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Enable or disable the processing of oracle recycle bin tables (tables
+starting with BIN$). Oracle 10g recycle bin tables may break DBUnit&#8217;s
+assumption of tables name uniqueness within a schema since these table
+are case sensitive. Enable this feature for Oracle 10g databases until
+the bug in the oracle driver is fixed, which incorrectly reports this
+system tables to DVUnit.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>escapePattern</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Allows schema, table and column names escaping. The property value is an
+escape pattern where the ? is replaced by the name. For example, the
+pattern "
+[?]
+" is expanded as "
+[MY_TABLE]
+" for a table named "MY_TABLE". The most common escape pattern is
+"\"?\"" which surrounds the table name with quotes (for the above
+example it would result in "\"MY_TABLE\""). As a fallback if no
+questionmark is in the given string and its length is one it is used to
+surround the table name on the left and right side. For example the
+escape pattern "\"" will have the same effect as the escape pattern
+"\"?\"".</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>tableType</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Used to configure the list of table types recognized by DBUnit.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>datatypeFactory</code></p></td>
+<td align="left" valign="top"><p class="table"><code>org.dbunit.dataset.
+datatype.
+DefaultDataTypeFactory</code></p></td>
+<td align="left" valign="top"><p class="table">Used to configure the DataType factory. You can replace the default
+factory to add support for non-standard database vendor data types.
+Provided class must implement
+<code>org.dbunit.dataset.datatype.IDataTypeFactory</code>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>statementFactory</code></p></td>
+<td align="left" valign="top"><p class="table"><code>org.dbunit.database.
+statement.
+PreparedStatementFactory</code></p></td>
+<td align="left" valign="top"><p class="table">Used to configure the statement factory. Provided class must implement
+<code>org.dbunit.database.statement.IStatementFactory</code>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>resultSetTableFactory</code></p></td>
+<td align="left" valign="top"><p class="table"><code>org.dbunit.database.
+IResultSetTableFactory</code></p></td>
+<td align="left" valign="top"><p class="table">Used to configure the ResultSet table factory. Provided class must
+implement <code>org.dbunit.database.CachedResultSetTableFactory</code>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>primaryKeyFilter</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Use to override primary keys detection. Provided class must implement
+<code>org.dbunit.dataset.filter.IColumnFilter</code>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>identityColumnFilter</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Use to override IDENTITY column detection (MS SQL specific solution).
+Provided class must implement <code>org.dbunit.dataset.filter.IColumnFilter</code>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>batchSize</code></p></td>
+<td align="left" valign="top"><p class="table">100</p></td>
+<td align="left" valign="top"><p class="table">Size of the batch updates.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>fetchSize</code></p></td>
+<td align="left" valign="top"><p class="table">100</p></td>
+<td align="left" valign="top"><p class="table">The statement fetch size for loading data into a result set table.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>metadataHandler</code></p></td>
+<td align="left" valign="top"><p class="table"><code>org.dbunit.database.
+DefaultMetadataHandler</code></p></td>
+<td align="left" valign="top"><p class="table">Used to configure the handler used to control database metadata related
+methods. Provided class must implement
+<code>org.dbunit.database.IMetadataHandler</code></p>
+<p class="table">For MySQL users&#8230;</p>
+<p class="table">If you are using MySQL, you must use
+<code>org.dbunit.ext.mysql.MySqlMetadataHandler</code> or you will get the "No
+columns found" error. See <a href="http://sourceforge.net/p/dbunit/bugs/226/">http://sourceforge.net/p/dbunit/bugs/226/</a>.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>useIdentityInsert</code></p></td>
+<td align="left" valign="top"><p class="table">false</p></td>
+<td align="left" valign="top"><p class="table">Disables MS SQL Server automatic identifier generation for the execution
+of inserts. For usage with Microsoft driver you should append your JDBC
+connection with "SelectMethod=cursor".</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>excludeTablesFromCleanup</code></p></td>
+<td align="left" valign="top"><p class="table"><em>empty</em></p></td>
+<td align="left" valign="top"><p class="table">List of tables to be excluded from cleanup procedure.<br />
+    * Especially handy for sequence tables which are most likely to be
+cleared<br />
+    * when using STRICT cleanup strategy.<br />
+Comma separated list of table names to be excluded from cleanup
+procedure. Especially handy for sequence tables which are otherwise
+cleared when using STRICT cleanup strategy.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>schema</code></p></td>
+<td align="left" valign="top"><p class="table"><em>empty</em></p></td>
+<td align="left" valign="top"><p class="table">Database schema name to be used by DBUnit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sql-scripts-customization">SQL Scripts Customization</h3>
+<div class="paragraph"><p><strong>Arquillian Persistence Extension</strong> allows you to customize the way how
+SQL scripts are handled.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;extension</span></span> <span style="color: #009900">qualifier</span><span style="color: #990000">=</span><span style="color: #FF0000">"persistence-script"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;property</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"sqlStatementDelimiter"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>GO<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/extension&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p><strong>List of all available properties</strong></p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Property name </th>
+<th align="left" valign="top">Default value </th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultSqlScriptLocation</code></p></td>
+<td align="left" valign="top"><p class="table">"scripts/"</p></td>
+<td align="left" valign="top"><p class="table">Folder where all custom SQL scripts are located.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>scriptsToExecuteBeforeTest</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Ad-hoc scripts or file locations to be used before every test. Might be
+handy for turning off integrity checks.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>scriptsToExecuteAfterTest</code></p></td>
+<td align="left" valign="top"><p class="table"><em>none</em></p></td>
+<td align="left" valign="top"><p class="table">Ad-hoc scripts or file locations to be used after every test. Could be
+used to revert operations applied by scriptsToExecuteBeforeTest.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>defaultCleanupUsingScriptPhase</code></p></td>
+<td align="left" valign="top"><p class="table">AFTER</p></td>
+<td align="left" valign="top"><p class="table">Defines default cleanup phase for custom SQL scripts.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><code>sqlStatementDelimiter</code></p></td>
+<td align="left" valign="top"><p class="table">;</p></td>
+<td align="left" valign="top"><p class="table">Defines char sequence indicating end of SQL statement</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maven-setup">Maven Setup</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You&#8217;ll first need to setup Arquillian in your project. You can find
+instructions in the
+<a href="http://arquillian.org/guides/getting_started/#add_the_arquillian_apis">Getting
+Started guide</a>. You&#8217;ll also need to add an Arquillian container adapter
+for a container which provides JPA. Any Java EE 6 server will do, such
+as JBoss AS 7 or GlassFish 3.1. Adding the required container adapter to
+your project is also covered in the
+<a href="http://arquillian.org/guides/getting_started/#add_more_containers">Getting
+Started guide</a>.</p></div>
+<div class="paragraph"><p>The only extra dependency you need is the Arquillian Persistence
+Extension implementation, <code>arquillian-persistence-dbunit</code>
+(former <code>arquillian-persistence-impl</code>), as shown in the snippet below.</p></div>
+<div class="paragraph"><p>Maven dependency for Arquillian Persistence Extension</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dependency&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;groupId&gt;</span></span>org.jboss.arquillian.extension<span style="font-weight: bold"><span style="color: #0000FF">&lt;/groupId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;artifactId&gt;</span></span>arquillian-persistence-dbunit<span style="font-weight: bold"><span style="color: #0000FF">&lt;/artifactId&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;version&gt;</span></span>${version.arquillian.persistence}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/version&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;scope&gt;</span></span>test<span style="font-weight: bold"><span style="color: #0000FF">&lt;/scope&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dependency&gt;</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-03-14 19:38:05 IST
+</div>
+</div>
+</body>
+</html>

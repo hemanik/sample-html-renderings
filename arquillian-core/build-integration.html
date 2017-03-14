@@ -1,0 +1,1409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Build Integration</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Build Integration</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Just because the Arquillian project uses Maven doesn&#8217;t mean you have to
+use it to run your Arquillian tests. Arquillian is designed to have
+seamless integration with JUnit and TestNG without any necessary test
+framework configuration. That means you can use any build system that
+has a JUnit or TestNG task to execute your Arquillian test cases. Since
+most of this guide focuses on using Arquillian in a Maven build, this
+chapter is going to be about alternative build systems, namely Gradle
+and Ant.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_active_build_ingredient">Active Build Ingredient</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The secret ingredient required to activate the Arquillian test runner is
+getting the correct libraries on the classpath. (Often easier said than
+done). The libraries consist of the Arquillian container integration and
+the container runtime (for an embedded container) or deployment client
+(for a remote container).</p></div>
+<div class="paragraph"><p>In general, the steps to incorporate Arquillian into a build, regardless
+of what build tool you are using, can be summarized as:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Activate/configure the JUnit or TestNG task/plugin
+</p>
+</li>
+<li>
+<p>
+Add the Arquillian container integration to the test classpath
+(e.g.,
+org.jboss.arquillian.container:arquillian-%VENDOR%-%TYPE%-%VERSION%)
+</p>
+</li>
+<li>
+<p>
+Add the container runtime (embedded) or deployment client (remote)
+to the classpath
+</p>
+</li>
+<li>
+<p>
+Execute the test build task/goal
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>If you are only running the Arquillian tests on a single container, this
+setup is exceptionally straightforward. The challenge comes when you
+want to run the tests on multiple containers. It&#8217;s really just a matter
+of putting the correct libraries on the test classpath, though.</p></div>
+<div class="paragraph"><p>For some build systems, isolating multiple classpath definitions is more
+tricky than others. For instance, in Maven, you only get one test
+classpath per run (without using really advanced plugin configuration).
+You can toggle between different test classpath pairings through the use
+of profiles. Each profile contains the libraries for a single target
+container (a combination of the libraries itemized in steps 2 and 3
+above). You&#8217;ll see this strategy used in the Arquillian examples.</p></div>
+<div class="paragraph"><p>Other build tools, such as Gradle, can easily define new test tasks that
+each have their own, unique classpath. This makes it not only possible
+to separate out the target containers, but also run the tests against
+each one in the same build execution. We&#8217;ll see an example of that later
+in this chapter. Gradle can also emulate the Maven profile strategy
+through the use of build fragment imports. We&#8217;ll also show an example of
+that approach for contrast.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven">Maven</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The community has gravitated towards Maven as the preferred build tool
+for projects that use Arquillian. Details on how to setup Arquillian in
+a Maven project is covered in detail in the
+<a href="http://arquillian.org/guides/">Arquillian Guides</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle">Gradle</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="http://gradle.org">Gradle</a> is a build tool that allows you to create
+declarative, maintainable, concise and highly-performing builds. More
+importantly, in this context, Gradle gives you all the freedom you need
+instead of imposing a rigid build lifecycle on you. You&#8217;ll get a glimpse
+of just how flexible Gradle can be by learning how to integrate
+Arquillian into a Gradle build.</p></div>
+<div class="paragraph"><p>We&#8217;ll be contrasting two strategies for running Arquillian tests from
+Gradle:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Container-specific test tasks
+</p>
+</li>
+<li>
+<p>
+Test "profiles" via build fragment imports
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>The first strategy is the recommended one since it gives you the benefit
+of being able to run your tests on multiple containers in the same
+build. However, the second approach is less esoteric and will be more
+familiar to Maven users. Of course, Gradle is so flexible that there are
+likely other solutions for this problem. We invite you to give us
+feedback if you find a better way (or another way worth documenting).</p></div>
+<div class="paragraph"><p>Let&#8217;s get the common build stuff out of the way, then dive into the two
+strategies listed above.</p></div>
+<div class="sect2">
+<h3 id="_apply_from_common">apply from: common</h3>
+<div class="paragraph"><p>The simplest Gradle build for a Java project is a sparse one line.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin</tt></pre></div></div>
+<div class="paragraph"><p>Put this line into a file named build.gradle at the root of the project,
+which is the standard location of the Gradle build file. (Perhaps after
+seeing this configuration you&#8217;ll understand the reference in the section
+title).</p></div>
+<div class="paragraph"><p>Next we&#8217;ll add the Maven Central and JBoss Community repository
+definitions, so that we can pull down dependent libraries. The latter
+repository hosts the Arquillian artifacts.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>If your SCM (e.g., SVN, Git) is already ignoring the target directory,
+you may want to move the Gradle build output underneath this folder,
+rather than allowing Gradle to use it&#8217;s default build directory, build.
+Let&#8217;s add that configuration to the common build logic as well:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>If you are using Gradle alongside Maven, you shouldn&#8217;t set the buildDir
+to target since Gradle organizes compiled classes different than Maven
+does, possibly leading to conflicts (Though, the behavior of Gradle can
+also be customized).</p></div>
+<div class="paragraph"><p>We also recommend that you centralize version numbers at the top of your
+build to make upgrading your dependency easy. This list will grow as you
+add other containers, but we&#8217;ll seed the list for the examples below:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+libraryVersions <span style="color: #990000">=</span> <span style="color: #990000">[</span>
+   junit<span style="color: #990000">:</span> <span style="color: #FF0000">'4.8.1'</span><span style="color: #990000">,</span> arquillian<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha4'</span><span style="color: #990000">,</span> jbossJavaeeSpec<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Beta7'</span><span style="color: #990000">,</span> weld<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.1-Final'</span><span style="color: #990000">,</span>
+   slf4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.5.8'</span><span style="color: #990000">,</span> log4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.2.14'</span><span style="color: #990000">,</span> jbossas<span style="color: #990000">:</span> <span style="color: #FF0000">'6.0.0.Final'</span><span style="color: #990000">,</span> glassfish<span style="color: #990000">:</span> <span style="color: #FF0000">'3.0.1-b20'</span><span style="color: #990000">,</span> cdi<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0-SP1'</span>
+<span style="color: #990000">]</span>
+
+<span style="color: #990000">...</span></tt></pre></div></div>
+<div class="paragraph"><p>We also need to add the unit test library (JUnit or TestNG) and the
+corresponding Arquillian integration:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>junit
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>In this example, we&#8217;ll assume the project is compiling against APIs that
+are provided by the target container runtime, so we need to add a
+dependency configuration (aka scope) to include libraries on the compile
+classpath but excluded from the runtime classpath. In the future, Gradle
+will include support for such a scope. Until then, we&#8217;ll define one
+ourselves in the configurations closure.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>configurations <span style="color: #FF0000">{</span>
+   compileOnly
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>We also need to add the dependencies associated with that configuration
+to the compile classpaths using the sourceSets closure:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>sourceSets <span style="color: #FF0000">{</span>
+   main <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> configurations<span style="color: #990000">.</span>compile <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+   test <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> compileClasspath <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Here&#8217;s the Gradle build all together now:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+libraryVersions <span style="color: #990000">=</span> <span style="color: #990000">[</span>
+   junit<span style="color: #990000">:</span> <span style="color: #FF0000">'4.8.1'</span><span style="color: #990000">,</span> arquillian<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha3'</span><span style="color: #990000">,</span> jbossJavaeeSpec<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Beta7'</span><span style="color: #990000">,</span> weld<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.1-Final'</span><span style="color: #990000">,</span>
+   slf4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.5.8'</span><span style="color: #990000">,</span> log4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.2.14'</span><span style="color: #990000">,</span> jbossas<span style="color: #990000">:</span> <span style="color: #FF0000">'6.0.0.Final'</span><span style="color: #990000">,</span> glassfish<span style="color: #990000">:</span> <span style="color: #FF0000">'3.0.1-b20'</span><span style="color: #990000">,</span> cdi<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0-SP1'</span>
+<span style="color: #990000">]</span>
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+<span style="color: #FF0000">}</span>
+
+configurations <span style="color: #FF0000">{</span>
+   compileOnly
+<span style="color: #FF0000">}</span>
+
+sourceSets <span style="color: #FF0000">{</span>
+   main <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> configurations<span style="color: #990000">.</span>compile <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+   test <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> compileClasspath <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Now that the foundation of a build is in place (or you&#8217;ve added these
+elements to your existing Gradle build), we are ready to configuring the
+container-specific test tasks. In the first approach, we&#8217;ll create a
+unique dependency configuration and task for each container.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_strategy_1_container_specific_test_tasks">Strategy #1: Container-Specific Test Tasks</h3>
+<div class="paragraph"><p>Each project in Gradle is made up of one or more tasks. A task
+represents some atomic piece of work which a build performs. Examples
+include compiling classes, <em>executing tests</em>, creating a JAR,
+publishing an artifact to a repository. We are interested in the
+executing tests task. But it&#8217;s not necessarily just a single test task.
+Gradle allows you to define any number of test tasks, each having its
+own classpath configuration. We&#8217;ll use this to configure test executions
+for each container.</p></div>
+<div class="paragraph"><p>Let&#8217;s assume that we want to run the tests against the following three
+Arquillian-supported containers:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Weld EE Embedded 1.1
+</p>
+</li>
+<li>
+<p>
+Remote JBoss AS 6
+</p>
+</li>
+<li>
+<p>
+Embedded GlassFish 3
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>We&#8217;ll need three components for each container:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Dependency configuration (scope)
+</p>
+</li>
+<li>
+<p>
+Runtime dependencies
+</p>
+</li>
+<li>
+<p>
+Custom test task
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>We&#8217;ll start with the Weld EE Embedded container. Starting from the
+Gradle build defined in the previous section, we first define a
+configuration for the test runtime dependencies.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>configurations <span style="color: #FF0000">{</span>
+   compileOnly
+   weldEmbeddedTestRuntime <span style="color: #FF0000">{</span> <span style="color: #008080">extendsFrom</span> testRuntime <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Next we add the dependencies for compiling against the Java EE API and
+running Arquillian tests in the Weld EE Embedded container:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">compileOnly</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'javax.enterprise'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'cdi-api'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>cdi
+
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>junit
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+
+   <span style="font-style: italic"><span style="color: #9A1900">// temporarily downgrade the weld-ee-embedded-1.1 container</span></span>
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-weld-ee-embedded-1.1'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha3'</span>
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.spec'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-javaee-6.0'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossJavaeeSpec
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.weld'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'weld-core'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>weld
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.slf4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'slf4j-log4j12'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>slf4j
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>log4j
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Finally, we define the test task:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">task</span> <span style="font-weight: bold"><span style="color: #000000">weldEmbeddedTest</span></span><span style="color: #990000">(</span>type<span style="color: #990000">:</span> Test<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+   testClassesDir <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classesDir
+   classpath <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> sourceSets<span style="color: #990000">.</span>main<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>weldEmbeddedTestRuntime
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>This task will execute in the lifecycle setup by the Java plugin in
+place of the normal test task. You run it as follows:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>gradle weldEmbeddedTest</tt></pre></div></div>
+<div class="paragraph"><p>Or, more simply:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>gradle wET</tt></pre></div></div>
+<div class="paragraph"><p>Now we just repeat this setup for the other containers.</p></div>
+<div class="paragraph"><p>Since you are creating custom test tasks, you likely want to configure
+the default test task to either exclude Arquillian tests are to use a
+default container, perhaps Weld EE Embedded in this case.</p></div>
+<div class="paragraph"><p>Here&#8217;s the full build file with the tasks for our three target
+containers:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+libraryVersions <span style="color: #990000">=</span> <span style="color: #990000">[</span>
+   junit<span style="color: #990000">:</span> <span style="color: #FF0000">'4.8.1'</span><span style="color: #990000">,</span> arquillian<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha4'</span><span style="color: #990000">,</span> jbossJavaeeSpec<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Beta7'</span><span style="color: #990000">,</span> weld<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.1-Final'</span><span style="color: #990000">,</span>
+   slf4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.5.8'</span><span style="color: #990000">,</span> log4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.2.14'</span><span style="color: #990000">,</span> jbossas<span style="color: #990000">:</span> <span style="color: #FF0000">'6.0.0.Final'</span><span style="color: #990000">,</span> glassfish<span style="color: #990000">:</span> <span style="color: #FF0000">'3.0.1-b20'</span><span style="color: #990000">,</span> cdi<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0-SP1'</span>
+<span style="color: #990000">]</span>
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/repositories/deprecated'</span>
+<span style="color: #FF0000">}</span>
+
+configurations <span style="color: #FF0000">{</span>
+   compileOnly
+   weldEmbeddedTestRuntime <span style="color: #FF0000">{</span> <span style="color: #008080">extendsFrom</span> testRuntime <span style="color: #FF0000">}</span>
+   jbossasRemoteTestRuntime <span style="color: #FF0000">{</span> <span style="color: #008080">extendsFrom</span> testRuntime<span style="color: #990000">,</span> compileOnly <span style="color: #FF0000">}</span>
+   glassfishEmbeddedTestRuntime <span style="color: #FF0000">{</span> <span style="color: #008080">extendsFrom</span> testRuntime <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">compileOnly</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'javax.enterprise'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'cdi-api'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>cdi
+
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>junit
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+
+   <span style="font-style: italic"><span style="color: #9A1900">// temporarily downgrade the weld-ee-embedded-1.1 container</span></span>
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-weld-ee-embedded-1.1'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha3'</span>
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.spec'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-javaee-6.0'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossJavaeeSpec
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.weld'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'weld-core'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>weld
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.slf4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'slf4j-log4j12'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>slf4j
+   <span style="color: #008080">weldEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>log4j
+
+   <span style="color: #008080">jbossasRemoteTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-jbossas-remote-6'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+   <span style="color: #008080">jbossasRemoteTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.jbossas'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-as-server'</span><span style="color: #990000">,</span> classifier<span style="color: #990000">:</span> <span style="color: #FF0000">'client'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossas<span style="color: #990000">,</span> transitive<span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span>
+   <span style="color: #008080">jbossasRemoteTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.jbossas'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-as-profileservice'</span><span style="color: #990000">,</span> classifier<span style="color: #990000">:</span> <span style="color: #FF0000">'client'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossas
+
+   <span style="color: #008080">glassfishEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-glassfish-embedded-3'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+   <span style="color: #008080">glassfishEmbeddedTestRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.glassfish.extras'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'glassfish-embedded-all'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>glassfish
+<span style="color: #FF0000">}</span>
+
+sourceSets <span style="color: #FF0000">{</span>
+   main <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> configurations<span style="color: #990000">.</span>compile <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+   test <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> compileClasspath <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="color: #008080">task</span> <span style="font-weight: bold"><span style="color: #000000">weldEmbeddedTest</span></span><span style="color: #990000">(</span>type<span style="color: #990000">:</span> Test<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+   testClassesDir <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classesDir
+   classpath <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> sourceSets<span style="color: #990000">.</span>main<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>weldEmbeddedTestRuntime
+<span style="color: #FF0000">}</span>
+
+<span style="color: #008080">task</span> <span style="font-weight: bold"><span style="color: #000000">jbossasRemoteTest</span></span><span style="color: #990000">(</span>type<span style="color: #990000">:</span> Test<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+   testClassesDir <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classesDir
+   classpath <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> sourceSets<span style="color: #990000">.</span>main<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #000000">files</span></span><span style="color: #990000">(</span><span style="color: #FF0000">'src/test/resources-jbossas'</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>jbossasRemoteTestRuntime
+<span style="color: #FF0000">}</span>
+
+<span style="color: #008080">task</span> <span style="font-weight: bold"><span style="color: #000000">glassfishEmbeddedTest</span></span><span style="color: #990000">(</span>type<span style="color: #990000">:</span> Test<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+   testClassesDir <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classesDir
+   classpath <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> sourceSets<span style="color: #990000">.</span>main<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>glassfishEmbeddedTestRuntime
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Notice we&#8217;ve added an extra resources directory for remote JBoss AS 6 to
+include the required jndi.properties file. That&#8217;s a special
+configuration for the remote JBoss AS containers, though won&#8217;t be
+required after Arquillian 1.0.0.Alpha4.</p></div>
+<div class="paragraph"><p>It&#8217;s now possible to run the Arquillian tests against each of the three
+containers in sequence using this Gradle command (make sure a JBoss AS
+is started in the background):</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>gradle weldEmbeddedTest jbossasRemoteTest glassfishEmbeddedTest</tt></pre></div></div>
+<div class="paragraph"><p>Pretty cool, huh?</p></div>
+<div class="paragraph"><p>Now let&#8217;s look at another way to solve this problem.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_strategy_2_test_profiles">Strategy #2: Test Profiles</h3>
+<div class="paragraph"><p>Another way to approach integrating Arquillian into a Gradle build is to
+emulate the behavior of Maven profiles. In this case, we won&#8217;t be adding
+any extra tasks, rather overriding the Java plugin configuration and
+provided tasks.</p></div>
+<div class="paragraph"><p>A Maven profile effectively overrides portions of the build
+configuration and is activated using a command option (or some other
+profile activation setting).</p></div>
+<div class="paragraph"><p>Once again, let&#8217;s assume that we want to run the tests against the
+following three Arquillian-supported containers:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Weld EE Embedded 1.1
+</p>
+</li>
+<li>
+<p>
+Remote JBoss AS 6
+</p>
+</li>
+<li>
+<p>
+Embedded GlassFish 3
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>All we need to do is customize the test runtime classpath for each
+container. First, let&#8217;s setup the common compile-time dependencies in
+the main build file:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+libraryVersions <span style="color: #990000">=</span> <span style="color: #990000">[</span>
+   junit<span style="color: #990000">:</span> <span style="color: #FF0000">'4.8.1'</span><span style="color: #990000">,</span> arquillian<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha3'</span><span style="color: #990000">,</span> jbossJavaeeSpec<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Beta7'</span><span style="color: #990000">,</span> weld<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.1-Final'</span><span style="color: #990000">,</span>
+   slf4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.5.8'</span><span style="color: #990000">,</span> log4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.2.14'</span><span style="color: #990000">,</span> jbossas<span style="color: #990000">:</span> <span style="color: #FF0000">'6.0.0.Final'</span><span style="color: #990000">,</span> glassfish<span style="color: #990000">:</span> <span style="color: #FF0000">'3.0.1-b20'</span><span style="color: #990000">,</span> cdi<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0-SP1'</span>
+<span style="color: #990000">]</span>
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+<span style="color: #FF0000">}</span>
+
+configurations <span style="color: #FF0000">{</span>
+   compileOnly
+<span style="color: #FF0000">}</span>
+
+dependencies <span style="color: #FF0000">{</span>
+   group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.spec'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-javaee-6.0'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossJavaeeSpec
+<span style="color: #FF0000">}</span>
+
+sourceSets <span style="color: #FF0000">{</span>
+   main <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> configurations<span style="color: #990000">.</span>compile <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+   test <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> compileClasspath <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>We then need to create a partial Gradle build file for each container
+that contains the container-specific dependencies and configuration.
+Let&#8217;s start with Weld EE Embedded.</p></div>
+<div class="paragraph"><p>Create a file named weld-ee-embedded-profile.gradle and populate it with
+the following contents:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>dependencies <span style="color: #FF0000">{</span>
+   <span style="font-style: italic"><span style="color: #9A1900">// temporarily downgrade the weld-ee-embedded-1.1 container</span></span>
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-weld-ee-embedded-1.1'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha3'</span>
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.spec'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-javaee-6.0'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossJavaeeSpec
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.weld'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'weld-core'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>weld
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.slf4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'slf4j-log4j12'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>slf4j
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'log4j'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>log4j
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Here&#8217;s the partial build file for Remote JBoss AS, named
+jbossas-remote-profile.gradle:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'javax.enterprise'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'cdi-api'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>cdi
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-jbossas-remote-6'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.jbossas'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-as-server'</span><span style="color: #990000">,</span> classifier<span style="color: #990000">:</span> <span style="color: #FF0000">'client'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossas<span style="color: #990000">,</span> transitive<span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span>
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.jbossas'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'jboss-as-profileservice'</span><span style="color: #990000">,</span> classifier<span style="color: #990000">:</span> <span style="color: #FF0000">'client'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>jbossas
+<span style="color: #FF0000">}</span>
+
+test <span style="color: #FF0000">{</span>
+   classpath <span style="color: #990000">=</span> sourceSets<span style="color: #990000">.</span>test<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> sourceSets<span style="color: #990000">.</span>main<span style="color: #990000">.</span>classes <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #000000">files</span></span><span style="color: #990000">(</span><span style="color: #FF0000">'src/test/resources-jbossas'</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>testRuntime
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>And finally the one for Embedded GlassFish, named
+glassfish-embedded-profile.gradle:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian.container'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-glassfish-embedded-3'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+   <span style="color: #008080">testRuntime</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.glassfish.extras'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'glassfish-embedded-all'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>glassfish
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Now we need to import the appropriate partial Gradle build into the main
+build. The file will be selected based on the value of the project
+property named profile.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">apply</span> plugin<span style="color: #990000">:</span> JavaPlugin
+
+buildDir <span style="color: #990000">=</span> <span style="color: #FF0000">'target/gradle-build'</span>
+
+libraryVersions <span style="color: #990000">=</span> <span style="color: #990000">[</span>
+   junit<span style="color: #990000">:</span> <span style="color: #FF0000">'4.8.1'</span><span style="color: #990000">,</span> arquillian<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Alpha4'</span><span style="color: #990000">,</span> jbossJavaeeSpec<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.0.Beta7'</span><span style="color: #990000">,</span> weld<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0.1-Final'</span><span style="color: #990000">,</span>
+   slf4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.5.8'</span><span style="color: #990000">,</span> log4j<span style="color: #990000">:</span> <span style="color: #FF0000">'1.2.14'</span><span style="color: #990000">,</span> jbossas<span style="color: #990000">:</span> <span style="color: #FF0000">'6.0.0.Final'</span><span style="color: #990000">,</span> glassfish<span style="color: #990000">:</span> <span style="color: #FF0000">'3.0.1-b20'</span><span style="color: #990000">,</span> cdi<span style="color: #990000">:</span> <span style="color: #FF0000">'1.0-SP1'</span>
+<span style="color: #990000">]</span>
+
+<span style="color: #008080">apply</span> from<span style="color: #990000">:</span> profile <span style="color: #990000">+</span> <span style="color: #FF0000">'-profile.gradle'</span>
+
+repositories <span style="color: #FF0000">{</span>
+   <span style="font-weight: bold"><span style="color: #000000">mavenCentral</span></span><span style="color: #990000">()</span>
+   <span style="color: #008080">mavenRepo</span> urls<span style="color: #990000">:</span> <span style="color: #FF0000">'http://repository.jboss.org/nexus/content/groups/public'</span>
+<span style="color: #FF0000">}</span>
+
+configurations <span style="color: #FF0000">{</span>
+   compileOnly
+<span style="color: #FF0000">}</span>
+
+dependencies <span style="color: #FF0000">{</span>
+   <span style="color: #008080">compileOnly</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'javax.enterprise'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'cdi-api'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>cdi
+
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>junit
+   <span style="color: #008080">testCompile</span> group<span style="color: #990000">:</span> <span style="color: #FF0000">'org.jboss.arquillian'</span><span style="color: #990000">,</span> name<span style="color: #990000">:</span> <span style="color: #FF0000">'arquillian-junit'</span><span style="color: #990000">,</span> version<span style="color: #990000">:</span> libraryVersions<span style="color: #990000">.</span>arquillian
+<span style="color: #FF0000">}</span>
+
+sourceSets <span style="color: #FF0000">{</span>
+   main <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> configurations<span style="color: #990000">.</span>compile <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+   test <span style="color: #FF0000">{</span>
+      compileClasspath <span style="color: #990000">=</span> compileClasspath <span style="color: #990000">+</span> configurations<span style="color: #990000">.</span>compileOnly
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Tests are run in the Weld EE Embedded runtime using this command:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">gradle</span> test <span style="color: #990000">-</span>Pprofile<span style="color: #990000">=</span>weld<span style="color: #990000">-</span>ee<span style="color: #990000">-</span>embedded</tt></pre></div></div>
+<div class="paragraph"><p>That&#8217;s pretty much the same experience you get when you use Maven (and a
+whole heck of a lot simpler).</p></div>
+<div class="paragraph"><p>While the configuration is much simpler using the profiles strategy,
+there are two things to keep in mind:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+It crosses over into more than one build file
+</p>
+</li>
+<li>
+<p>
+You cannot run the tests in each container in a single build
+execution
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>If you have a better idea of how to integrate an Arquillian test suite
+into a Gradle build, we&#8217;d love to hear it on the
+<a href="http://community.jboss.org/en/arquillian">Arquillian discussion forums</a>.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ant_ivy">Ant + Ivy</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>WRITE ME</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ant">Ant</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This guide will detail how to use Arquillian using ant. We will use
+maven to download all the required jars.</p></div>
+<div class="paragraph"><p>Overview of Steps</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Setup Example Maven project
+</p>
+</li>
+<li>
+<p>
+Get All Arquillian dependency jars
+</p>
+</li>
+<li>
+<p>
+configure ant scripts
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Work in progress. Please return.</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-03-14 21:03:09 IST
+</div>
+</div>
+</body>
+</html>
