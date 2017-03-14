@@ -1,0 +1,2318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Page Abstractions - Graphene 2</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Page Abstractions - Graphene 2</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><strong>Page Abstractions enhance the way your tests are written. They make your
+tests more robust and therefore more reliable.</strong></p></div>
+<div class="paragraph"><p>Page Abstractions included here are:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<a href="#page-objects">Page Objects</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#page-fragments">Page Fragments</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#location-of-pages">Location of Pages</a>
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>To see their power let&#8217;s start with a little bit of motivation. Do you
+often see Graphene (or Selenium Webdriver) tests like this:</p></div>
+<div class="listingblock">
+<div class="title">UglyGrapheneTests.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestAutocompleteWidgets</span> <span style="font-weight: bold"><span style="color: #0000FF">extends</span></span> AbstractGrapheneTest <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> firstAutocompleteInput <span style="color: #990000">=</span> 
+                               By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">css</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(1)"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> secondAutocompleteInput <span style="color: #990000">=</span> 
+                               By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">css</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(2)"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> thirdAutocompleteInput <span style="color: #990000">=</span> 
+                               By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">css</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(3)"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">By</span> suggestion <span style="color: #990000">=</span> 
+                               By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">className</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"rf-au-itm"</span><span style="color: #990000">);</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testFirstAutocomplete</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">WebElement</span> autocomplete <span style="color: #990000">=</span> driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElement</span></span><span style="color: #990000">(</span>firstAutocompleteInput<span style="color: #990000">);</span>
+
+        autocomplete<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Ar"</span><span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">();</span>
+
+        <span style="color: #008080">List&lt;WebElement&gt;</span> suggestions <span style="color: #990000">=</span> driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>suggestion<span style="color: #990000">);</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestions<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(),</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> 
+                           <span style="color: #FF0000">"There should be two suggestions!"</span><span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestions<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">(),</span> <span style="color: #FF0000">"Arizona"</span><span style="color: #990000">,</span>
+                           <span style="color: #FF0000">"The first suggestion is wrong!"</span><span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestion<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">(),</span> <span style="color: #FF0000">"Arkansas"</span><span style="color: #990000">,</span>
+                           <span style="color: #FF0000">"The second suggestion is wrong!"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testSecondAutocomplete</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//other similar interactions with the other two Autocomplete widgets</span></span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//some wait method to wait for suggestions becoming visible</span></span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>In the previous example you can notice that tests are tightly coupled
+with the HTML structure of the tested page. So once the structure of the
+page changes (it can be even slight change in class attribute of
+some element) tests are affected as well. These small changes can
+effectively break a lot of tests, in other words increase the time spent
+on the tests maintenance.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_there_comes_page_objects_pattern_to_improve_this">There Comes Page Objects Pattern To Improve This.</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Basically it is an encapsulation of the tested page structure into one
+class, which will contain all the page fragments (parts, components,
+widgets) together with all handy methods which you will find useful
+while testing the encapsulated page.</p></div>
+<div class="paragraph"><p>Very simple Page Object which results from the previous test example is
+below:</p></div>
+<div class="listingblock">
+<div class="title">TestingPage.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestPage</span> <span style="color: #FF0000">{</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(1)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> firstAutocompleteInput<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(2)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> secondAutocompleteInput<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"input[type=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">text</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(3)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> thirdAutocompleteInput<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-au-itm"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">List&lt;WebElement&gt;</span> suggestions<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//getters for all fields of this Page Object</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//some wait method to wait for suggestions becoming visible</span></span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//other handy methods used with testing of the page</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>The test can be now be decoupled from the underlying HTML structure of the
+tested page. Once the structure changes, the only modification will be
+needed in Page Object. The test would look like below snippet:</p></div>
+<div class="listingblock">
+<div class="title">NicerGrapheneTests.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestAutocompleteWidgets</span> <span style="font-weight: bold"><span style="color: #0000FF">extends</span></span> AbstractGrapheneTest <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">TestingPage</span> testingPage<span style="color: #990000">;</span>
+
+    @Before
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">initializeTestingPage</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        testingPage <span style="color: #990000">=</span> PageFactory<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">initElements</span></span><span style="color: #990000">(</span>driver<span style="color: #990000">,</span> TestingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testFirstAutocomplete</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+
+        testingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getFirstAutocompleteInput</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Ar"</span><span style="color: #990000">);</span>
+        testingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">();</span>
+
+        <span style="color: #008080">List&lt;WebElement&gt;</span> suggestions <span style="color: #990000">=</span> testingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getSuggestions</span></span><span style="color: #990000">();</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestions<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(),</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> 
+                    <span style="color: #FF0000">"There should be two suggestions!"</span><span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestions<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">(),</span> <span style="color: #FF0000">"Arizona"</span><span style="color: #990000">,</span> 
+                    <span style="color: #FF0000">"The first suggestion is wrong!"</span><span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>suggestion<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">(),</span> <span style="color: #FF0000">"Arkansas"</span><span style="color: #990000">,</span> 
+                    <span style="color: #FF0000">"The second suggestion is wrong!"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testSecondAutocomplete</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//other similar interactions with the other two Autocomplete widgets</span></span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>To read more about how Graphene helps with utilization of this concept,
+please follow <a href="#page-objects">Page Objects</a>.</p></div>
+<div class="paragraph"><p>Page Objects pattern is a well known concept, which greatly improves
+tests robustness. However, is there more space for improvement ?</p></div>
+<div class="paragraph"><p>Consider the previous example, where we were testing three autocomplete
+widgets. Each of the test had to deal with the interaction between
+driver and that component on its own. Unfortunately not only tests in
+that one test class, but all the tests which interact with the same
+autocomplete widget get implemented with the same UI framework. It is a huge
+DRY violation.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_therefore_graphene_introduces_a_new_concept_called_page_fragments_to_improve_this">Therefore Graphene introduces a new concept, called Page Fragments to improve this.</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><em>What are Page Fragments in short ?</em></p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Page Fragments stands for any part of the tested page, any widget, web
+component, etc.
+</p>
+</li>
+<li>
+<p>
+A concept of encapsulation of these parts into completely reusable
+pieces across all your tests.
+</p>
+</li>
+<li>
+<p>
+Powerful mechanism for creating own page fragments, like Autocomplete
+(Calendar, Login, etc.) page fragment.
+</p>
+</li>
+<li>
+<p>
+A concept which differentiates each fragment by its root element and
+make other parts reference from it.
+</p>
+</li>
+<li>
+<p>
+A solution which leverages Selenium WebDriver under the hood together
+with all Graphene killer features.
+</p>
+</li>
+<li>
+<p>
+Set of utilities which simplify using of this feature in tests,
+together with better support for Page Objects pattern.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>So we already know that autocomplete widget from the previous example
+can be encapsulated into one object. As it is part of the page, its
+fragment, let&#8217;s call that object Page Fragment. Better than words, let&#8217;s
+see an example of such encapsulation below.</p></div>
+<div class="listingblock">
+<div class="title">AutocompleteFragment.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">AutocompleteFragment</span><span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;</span> <span style="color: #FF0000">{</span>
+
+    @Root
+    <span style="color: #008080">WebElement</span> root<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"input[type='text']"</span><span style="color: #990000">)</span>
+    <span style="color: #008080">WebElement</span> inputToWrite<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> CLASS_NAME_SUGGESTION <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-au-itm"</span><span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt; getAllSuggestions(SuggestionParser&lt;T&gt;</span> parser<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt;</span> allSugg <span style="color: #990000">=</span> <span style="color: #008080">new</span> ArrayList<span style="color: #990000">&lt;</span>Suggestion<span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;&gt;();</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">areSuggestionsAvailable</span></span><span style="color: #990000">())</span> <span style="color: #FF0000">{</span>
+            <span style="color: #008080">WebElement</span> rightSuggList <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getRightSuggestionList</span></span><span style="color: #990000">();</span>
+            
+            <span style="color: #008080">List&lt;WebElement&gt;</span> suggestions <span style="color: #990000">=</span> 
+                 rightSuggList<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>
+                    By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">className</span></span><span style="color: #990000">(</span>CLASS_NAME_SUGGESTION<span style="color: #990000">));</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #008080">WebElement</span> suggestion <span style="color: #990000">:</span> suggestions<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                allSugg<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span>parser<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">parse</span></span><span style="color: #990000">(</span>suggestion<span style="color: #990000">));</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> allSugg<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt; type(String value, SuggestionParser&lt;T&gt;</span> parser<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt;</span> suggestions <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> ArrayList<span style="color: #990000">&lt;</span>Suggestion<span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;&gt;();</span>
+
+        inputToWrite<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>value<span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">try</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">();</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">catch</span></span> <span style="color: #990000">(</span><span style="color: #008080">TimeoutException</span> ex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">// no suggestions available</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> suggestions<span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+
+        suggestions <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getAllSuggestions</span></span><span style="color: #990000">(</span>parser<span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> suggestions<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//other handy encapsulation of Autocomplete services</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>It is nothing special. The only difference between Page Objects and Page
+Fragments is the element annotated with the <code>@Root</code> annotation. All
+other <code>WebElement</code> fields annotated with <code>@FindBy</code> are referenced from
+that root element. It makes such implementation pretty generic and
+reusable across all tests which need to interact with the encapsulated
+Page Fragment.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">The <code>@Root</code> annotation is optional, you typically use it when you need
+to directly invoke methods on it in your fragment&#8217;s code. Therefore, you
+do not need to declare such element. Graphene will take care of it. You
+denote whether it is a Page Fragment or a Page Object in the way you use it
+(a particular Page Object is annotated with <code>@Page</code>, a Page Fragment
+with <code>@FindBy</code> annotation).</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>To introduce Page Fragments into previous test example, one need to do
+for example following:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Move autocomplete specific methods from <code>TestingPage</code> to the
+<code>AutocompleteFragment&lt;T&gt;</code> implementation, so they can be reused in other
+tests for different applications or pages too.
+</p>
+</li>
+<li>
+<p>
+Declare Page Fragments into Page Object (<code>TestingPage</code>, preferred
+option) or directly into the tests (this again couples tests with the
+structure of the testing page, less preferred).
+</p>
+</li>
+<li>
+<p>
+Rewrite Page Object methods so they will interact with the Page
+Fragments instead of plain WebElements.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Following snippet shows that:</p></div>
+<div class="listingblock">
+<div class="title">ImprovedTestingPage.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestPage</span> <span style="color: #FF0000">{</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"div[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-au</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(1)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">AutocompleteFragment&lt;String&gt;</span> autocomplete1<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"div[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-au</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(2)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">AutocompleteFragment&lt;String&gt;</span> autocomplete2<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"div[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-au</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(3)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">AutocompleteFragment&lt;String&gt;</span> autocomplete3<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// getters for all fields of this Page Object</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// other handy methods used with testing </span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">// of the page now using the methods called from Page Fragments</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>For more information about how Page Fragments are declared, initialized
+and more, please continue with <a href="#page-fragments">Page Fragments</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="page-objects">Page Objects</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Page Objects pattern is very well described
+<a href="http://code.google.com/p/selenium/wiki/PageObjects">here</a>.</p></div>
+<div class="paragraph"><p><strong>Graphene comes with support for this pattern.</strong> The main additions are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Better support for initialization of the Page Objects. Graphene
+automatically enriches the Page Object&#8217;s injection points (e.g.
+<code>@FindBy</code>).
+</p>
+</li>
+<li>
+<p>
+Page Objects can contain <a href="#page-fragments">Page Fragments</a> and they are
+also properly initialized.
+</p>
+</li>
+<li>
+<p>
+Page Objects can contain any injection point which Arquillian supports.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+e.g. <code>@Drone WebDriver</code> for injecting browser instance
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Page Objects can <a href="#location-of-pages">encapsulate their location</a>.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>You have already seen the default way of initializing Page Objects in
+<a href="#page-abstractions">Page Abstractions</a>.</p></div>
+<div class="paragraph"><p><strong>Let&#8217;s showcase Graphene way of doing this!</strong></p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Implement a Page Object.
+</p>
+</li>
+<li>
+<p>
+Declare it in the test.
+</p>
+</li>
+<li>
+<p>
+Annotate it with
+<code>org.jboss.arquillian.graphene.spi.annotations.Page</code> annotation.
+</p>
+</li>
+<li>
+<p>
+And that&#8217;s all! No need to initialize Page Object via any factory
+method.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>To see it in action, consider the code snippets below, which
+demonstrate testing of a simple web page with progress bar and two
+buttons.</p></div>
+<div class="sect2">
+<h3 id="implement-page-object">Implement Page Object</h3>
+<div class="listingblock">
+<div class="title">TestingPage.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>openqa<span style="color: #990000">.</span>selenium<span style="color: #990000">.</span>support<span style="color: #990000">.</span>FindBy<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestPage</span> <span style="color: #FF0000">{</span>
+
+    @Drone
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebDriver</span> browser<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"start-button"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> startButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"stop-button"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> stopButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>id <span style="color: #990000">=</span> <span style="color: #FF0000">"progress"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> progressBar<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"foo-bar"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">List&lt;WebElement&gt;</span> listOfElements<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//getters for all fields of this Page Object</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">long</span> <span style="font-weight: bold"><span style="color: #000000">start</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        startButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> System<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">currentTimeMillis</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">stop</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        stopButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    * Returns the progress, that is, on how many percents it is completed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getProgress</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//parse string which contains % sign to an int value</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//you may use also injected browser instance</span></span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">long</span> <span style="font-weight: bold"><span style="color: #000000">waitUntilCompleted</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">while</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">getProgress</span></span><span style="color: #990000">()</span> <span style="color: #990000">!=</span> <span style="color: #993399">100</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//do nothing</span></span>
+        <span style="color: #FF0000">}</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> System<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">currentTimeMillis</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//other handy methods used with testing of the page</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">Page Objects can be declared also as nested classes. However, to better
+decouple test logic from the structure of the tested page, it is
+recommended to declare Page Objects as standalone classes.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">Your are not limited just with injecting <code>WebElement</code> instances. You can
+in the same way inject your <a href="#page-fragments">Page Fragments</a>, or even
+<code>java.util.List</code> of Page Fragments/WebElements.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">You have to use private fields for all Graphene initialized
+<code>WebElement</code>/Page Fragments etc. Use their getters from tests.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">
+<div class="title">Page Objects in Multiple Browsers Scenario</div>
+<div class="paragraph"><p>If you use page abstractions together with parallel browsers feature, be
+sure to check <a href="#parallel-browsers#using-page-abstractions-with-multiple-browsers">Using Page Abstractions with Multiple Browsers</a>.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="declare-it-in-the-test-and-annotate-it-with-page-annotation.">Declare It In The Test And Annotate It With @Page Annotation.</h3>
+<div class="listingblock">
+<div class="title">Test.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>graphene<span style="color: #990000">.</span>page<span style="color: #990000">.</span>Page<span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">//other imports</span></span>
+
+@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestClass</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//ommitting all the other Arquillian related methods for deployment etc.</span></span>
+
+    @Page
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">TestingPage</span> testingPage<span style="color: #990000">;</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">test1</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #009900">long</span> startedAt <span style="color: #990000">=</span> testingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">start</span></span><span style="color: #990000">();</span>
+
+        <span style="color: #009900">long</span> endedAt <span style="color: #990000">=</span> testingPage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">waitUntilCompleted</span></span><span style="color: #990000">();</span>
+
+        <span style="color: #009900">long</span> lastInSeconds <span style="color: #990000">=</span> <span style="color: #990000">(</span>endedAt <span style="color: #990000">-</span> startedAt<span style="color: #990000">)</span> <span style="color: #990000">/</span> <span style="color: #993399">1000</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">assertTrue</span></span><span style="color: #990000">(</span>lastInSeconds <span style="color: #990000">&lt;</span> <span style="color: #993399">20</span><span style="color: #990000">,</span> <span style="color: #FF0000">"It took: "</span> <span style="color: #990000">+</span> lastInSeconds <span style="color: #990000">+</span> <span style="color: #FF0000">", its too much!"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">test2</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//other test which can also call methods from already initialized {{TestingPage}}</span></span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="deployment-and-browser-determination">Deployment and Browser Determination</h3>
+<div class="paragraph"><p>The deployment according to which the <code>@Location</code> value will be
+resolved, and the browser into which the page will be loaded can be
+determined in the following way:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>container<span style="color: #990000">.</span>test<span style="color: #990000">.</span>api<span style="color: #990000">.</span>Deployment<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>container<span style="color: #990000">.</span>test<span style="color: #990000">.</span>api<span style="color: #990000">.</span>OperateOnDeployment<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>container<span style="color: #990000">.</span>test<span style="color: #990000">.</span>api<span style="color: #990000">.</span>RunAsClient<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>graphene<span style="color: #990000">.</span>page<span style="color: #990000">.</span>InitialPage<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>graphene<span style="color: #990000">.</span>page<span style="color: #990000">.</span>Location<span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">//other imports</span></span>
+
+@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+@RunAsClient
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestLocation</span> <span style="color: #FF0000">{</span>
+
+    @Drone
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebDriver</span> browser<span style="color: #990000">;</span>
+
+    @Drone
+    @Browser2
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebDriver</span> browser2<span style="color: #990000">;</span>
+
+    @Deployment
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">WebArchive</span> <span style="font-weight: bold"><span style="color: #000000">createTestArchive</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//returning default war</span></span>
+    <span style="color: #FF0000">}</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">Deployment</span></span><span style="color: #990000">(</span>name <span style="color: #990000">=</span> <span style="color: #FF0000">"deployment1"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #008080">WebArchive</span> <span style="font-weight: bold"><span style="color: #000000">createTestArchive1</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+       <span style="font-style: italic"><span style="color: #9A1900">//returning some different war</span></span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    @<span style="font-weight: bold"><span style="color: #000000">OperateOnDeployment</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"deployment1"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">test1</span></span><span style="color: #990000">(</span>@InitialPage <span style="color: #008080">MyPageObject1</span> obj<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//testing the page with help of MyPageObject1</span></span>
+    <span style="color: #FF0000">}</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">test2</span></span><span style="color: #990000">(</span>@Browser2 @InitialPage <span style="color: #008080">MyPageObject2</span> obj<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//Graphene will load as the first action MyPageObject2 location value to the browser2</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//testing the page with help of MyPageObject2</span></span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>You can read more about multiple deployments Arquillian feature
+
+<a href="https://docs.jboss.org/author/display/ARQ/Multiple+Deployments">here</a>.
+Graphene support for <a href="#parallel-browsers#">parallel browsers</a> for
+more information about this subject.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="page-fragments">Page Fragments</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The concept of Page Fragments and motivation behind them were already
+introduced in <a href="#page-abstractions">Page Abstractions</a>. Here you can find more
+detailed info about:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<a href="#relation-to-page-objects">Relation to Page Objects</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#usage">Usage</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#creating-page-fragments">Creating Page Fragments</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#samples-of-page-fragments">Samples of Page Fragments</a>
+</p>
+<div class="olist loweralpha"><ol class="loweralpha">
+<li>
+<p>
+<a href="#autocomplete">Autocomplete</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#calendar">Calendar</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#table">Table</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#login-component">Login component</a>
+</p>
+</li>
+</ol></div>
+</li>
+</ol></div>
+<div class="sect2">
+<h3 id="relation-to-page-objects">Relation to Page Objects</h3>
+<div class="paragraph"><p>Page Fragments and Page Objects are similar concepts. They both
+decouple HTML structure of the tested application from the tests. They
+both encapsulate some kind of page services or the interactions a user
+can do with the page.</p></div>
+<div class="paragraph"><p>The difference is that Page Objects are encapsulating a specific page
+(or its part) of specific application, while Page Fragments are dealing
+with parts of the page, its widgets, components, basically fragments
+which are reusable across the whole web UI framework in which the
+application under test is written.</p></div>
+</div>
+<div class="sect2">
+<h3 id="usage">Usage</h3>
+<div class="paragraph"><p>To use Page Fragment in your tests only thing you need to do is use an
+implementation class of the Page Fragment together with <code>@FindBy</code>
+annotation pointing to the root of the fragment.</p></div>
+<div class="listingblock">
+<div class="title">DeclaringPageFragmentInTest.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css<span style="color: #990000">=</span><span style="color: #FF0000">"cssLocatorOfThePageFragmentRoot"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">PageFragmentImplementation</span> pageFragment<span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>Use <code>@FindBy</code> annotation as you are used to with plain <code>WebElement</code>, so
+indeed you can use other locating strategies (xpath, id, className, &#8230;)
+to reference the root of the Page fragment. The root of the fragment is
+DOM element which is parent for all other elements which are part of the
+Page fragment and need to be referenced from it (e.g. Calendar and its
+cells).</p></div>
+<div class="paragraph"><p>These Page fragments and other <code>WebElement</code> fields are dynamically
+initialized by Graphene so no need to initialize them via factories.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">
+<div class="title">Handy Hints</div>
+<div class="ulist"><ul>
+<li>
+<p>
+You can declare Page Fragments in the above mentioned way either
+directly in your tests or you can declare them in the same way within
+your Page Objects.
+</p>
+</li>
+<li>
+<p>
+You can nest your Page Fragments in other Page Fragments and create
+thus nice structure of your fragments (e.g. Page Fragment application
+menu &#8594; nested menu group &#8594; nested menu item).
+</p>
+</li>
+<li>
+<p>
+Page Fragments can be declared as nested classes, however, to better
+reuse them across your test suites, it is not recommended.
+</p>
+</li>
+</ul></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>There is another way to create Page Fragments. You can create them
+dynamically with use of
+<code>Graphene.createPageFragment(Class&lt;T&gt; clazz, WebElement root)</code>. This may
+be particularly useful when implementing Page Fragment for e.g. Tab
+Panel widget.</p></div>
+</div>
+<div class="sect2">
+<h3 id="creating-page-fragments">Creating Page Fragments</h3>
+<div class="paragraph"><p>To define own Page Fragment one needs to:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Recognize a fragment of the page which can be abstracted and
+encapsulated into a Page Fragment (Basically web UI components which are
+rendered always with the same DOM structure.)
+</p>
+</li>
+<li>
+<p>
+Create a class or if you find it appropriate also an interface for
+it.
+</p>
+</li>
+<li>
+<p>
+Define the parts you need for implementing the fragment&#8217;s services,
+which will be referenced from the injected root. Annotate them with
+<code>@FindBy</code> annotation.
+</p>
+</li>
+<li>
+<p>
+Define the methods which are basically encapsulation of the fragment
+services (Calendar services - get date, set date, &#8230;).
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">If you need to access the injected root of your Page Fragment, you can do
+so by declaring a <code>WebElement</code> field with a <code>@Root</code> annotation.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>There are two packages from where you can import <code>@FindBy</code> annotation:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<code>org.openqa.selenium.support.FindBy</code> - well know <code>@FindBy</code> from
+Selenium 2<br />
+</p>
+</li>
+<li>
+<p>
+<code>org.jboss.arquillian.graphene.enricher.findby.FindBy</code>
+which adds on top of classic <code>@FindBy</code> many useful features.
+</p>
+</li>
+</ol></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>So the implementation can look like snippet below.</p></div>
+<div class="listingblock">
+<div class="title">PageFragmentExample.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>graphene<span style="color: #990000">.</span>spi<span style="color: #990000">.</span>annotations<span style="color: #990000">.</span>Root<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>openqa<span style="color: #990000">.</span>selenium<span style="color: #990000">.</span>WebElement<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">import</span></span> org<span style="color: #990000">.</span>openqa<span style="color: #990000">.</span>selenium<span style="color: #990000">.</span>support<span style="color: #990000">.</span>FindBy<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">PageFragmentExample</span> <span style="color: #FF0000">{</span>
+
+    @Root
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> optionalRoot<span style="color: #990000">;</span>
+
+    @Drone
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebDriver</span> browser<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css<span style="color: #990000">=</span><span style="color: #FF0000">"relativeLocatorOfThisPageFragmentPart"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> otherPageFragmentPart<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>xpath<span style="color: #990000">=</span><span style="color: #FF0000">"relativeLocatorOfThisPageFragmentPart"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> alsoPageFragmentPart<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">firstServiceEncapsulated</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        otherPageFragmentPart<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">secondServciceEncapsulated</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        alsoPageFragmentPart<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">thirdServiceWhichNeedsDirectAccessToRoot</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fourthServiceWhichNeedsBrowserInstance</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">Actions</span> builder <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Actions</span></span><span style="color: #990000">(</span>browser<span style="color: #990000">);</span>
+
+        builder<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>Keys<span style="color: #990000">.</span>CONTROL<span style="color: #990000">)</span>
+               <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">(</span>otherPageFragmentPart<span style="color: #990000">)</span>
+               <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">keyUp</span></span><span style="color: #990000">(</span>Keys<span style="color: #990000">.</span>CONTROL<span style="color: #990000">);</span>
+        builder<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">build</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">perform</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//other services and help methods</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">Be Careful with the xpath locators. They can be written in a way
+that it does not matter from which element they are referenced.
+Prefer therefore locating according to id, css or class name.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">Indeed you will need a reference for <code>WebDriver</code> instance. You can
+easily inject it with <code>@Drone</code> annotation.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">You have to use private fields for all Graphene initialized
+WebElement/Page Fragments etc. Use their getters from tests.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">
+<div class="title">Page Fragments In Multiple Browsers Scenario</div>
+<div class="paragraph"><p>If you use page abstractions together with parallel browsers feature, be
+sure to <a href="#parallel-browsers#using-page-abstractions-with-multiple-browsers">Using Page Abstractions with Multiple Browsers</a>.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="samples-of-page-fragments">Samples of Page Fragments</h3>
+<div class="paragraph"><p>Let&#8217;s consider following code snippets, which are reflecting some
+examples of the Page Fragments to start with. In each example you can
+find:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+An image of the page fragment to be clear what we are speaking about.
+</p>
+</li>
+<li>
+<p>
+HTML structure of the page fragment rendered in RichFaces framework.
+</p>
+</li>
+<li>
+<p>
+Example of the Page Fragment encapsulation, either the implementation
+or just the interface for it.
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="autocomplete">Autocomplete</h4>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/autocomplete.png" alt="images/author/download/attachments/53117994/autocomplete.png" />
+</span></p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/autocompleteHTML.png" alt="images/author/download/attachments/53117994/autocompleteHTML.png" />
+</span></p></div>
+<div class="listingblock">
+<div class="title">AutocompletePageFragment.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">AutocompletePageFragment</span><span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;</span> <span style="color: #FF0000">{</span>
+
+    @Root
+    <span style="color: #008080">WebElement</span> root<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> CSS_INPUT<span style="color: #990000">)</span>
+    <span style="color: #008080">WebElement</span> inputToWrite<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> CLASS_NAME_SUGGESTION_LIST <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-au-lst-cord"</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> CLASS_NAME_SUGGESTION <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-au-itm"</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> CSS_INPUT <span style="color: #990000">=</span> <span style="color: #FF0000">"input[type='text']"</span><span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">String</span> separator <span style="color: #990000">=</span> <span style="color: #FF0000">" "</span><span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">boolean</span> <span style="font-weight: bold"><span style="color: #000000">areSuggestionsAvailable</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+
+        <span style="color: #008080">List&lt;WebElement&gt;</span> suggestionLists <span style="color: #990000">=</span> root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>
+              By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">xpath</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"//*[contains(@class,'"</span> <span style="color: #990000">+</span> CLASS_NAME_SUGGESTION_LIST <span style="color: #990000">+</span> <span style="color: #FF0000">"')]"</span><span style="color: #990000">));</span>
+
+        <span style="color: #008080">WebElement</span> suggList <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getRightSuggestionList</span></span><span style="color: #990000">();</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> suggList<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">isDisplayed</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">finish</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        inputToWrite<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">" "</span><span style="color: #990000">);</span>
+        inputToWrite<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"</span><span style="color: #CC33CC">\b\b</span><span style="color: #FF0000">"</span><span style="color: #990000">);</span>
+        root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt; getAllSuggestions(SuggestionParser&lt;T&gt;</span> parser<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt;</span> allSugg <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> ArrayList<span style="color: #990000">&lt;</span>Suggestion<span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;&gt;();</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">areSuggestionsAvailable</span></span><span style="color: #990000">())</span> <span style="color: #FF0000">{</span>
+            <span style="color: #008080">WebElement</span> rightSuggList <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getRightSuggestionList</span></span><span style="color: #990000">();</span>
+            <span style="color: #008080">List&lt;WebElement&gt;</span> suggestions <span style="color: #990000">=</span> rightSuggList<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>
+                                         By<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">className</span></span><span style="color: #990000">(</span>CLASS_NAME_SUGGESTION<span style="color: #990000">));</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #008080">WebElement</span> suggestion <span style="color: #990000">:</span> suggestions<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                allSugg<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span>parser<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">parse</span></span><span style="color: #990000">(</span>suggestion<span style="color: #990000">));</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> allSugg<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setSeparator</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> regex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">.</span>separator <span style="color: #990000">=</span> regex<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">type</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        inputToWrite<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>value<span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">try</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">(</span>GUI_WAIT<span style="color: #990000">);</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">catch</span></span> <span style="color: #990000">(</span><span style="color: #008080">TimeoutException</span> ex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">// no suggestions available</span></span>
+
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt; type(String value, SuggestionParser&lt;T&gt;</span> parser<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">List&lt;Suggestion&lt;T&gt;&gt;</span> suggestions <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> ArrayList<span style="color: #990000">&lt;</span>Suggestion<span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;&gt;();</span>
+
+        inputToWrite<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>value<span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">try</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">(</span>GUI_WAIT<span style="color: #990000">);</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">catch</span></span> <span style="color: #990000">(</span><span style="color: #008080">TimeoutException</span> ex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">// no suggestions available</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> suggestions<span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+
+        suggestions <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getAllSuggestions</span></span><span style="color: #990000">(</span>parser<span style="color: #990000">);</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> suggestions<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">waitForSuggestions</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timeout<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WebDriverWait</span></span><span style="color: #990000">(</span>GrapheneContext<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getProxy</span></span><span style="color: #990000">(),</span> timeout<span style="color: #990000">))</span>
+           <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">until</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> ExpectedCondition<span style="color: #990000">&lt;</span>Boolean<span style="color: #990000">&gt;()</span> <span style="color: #FF0000">{</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">Boolean</span> <span style="font-weight: bold"><span style="color: #000000">apply</span></span><span style="color: #990000">(</span><span style="color: #008080">WebDriver</span> d<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #000000">areSuggestionsAvailable</span></span><span style="color: #990000">();</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//other Autocomplete services and help methods</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="calendar">Calendar</h4>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/calendar.png" alt="images/author/download/attachments/53117994/calendar.png" />
+</span></p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/calendarHTML.png" alt="images/author/download/attachments/53117994/calendarHTML.png" />
+</span></p></div>
+<div class="listingblock">
+<div class="title">CalendarPageFragmentImpl.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">CalendarPageFragmentImpl</span> <span style="color: #FF0000">{</span>
+
+    @Root
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> root<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-cal-inp"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> input<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"td[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-cal-hdr-month</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">] &gt; div"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> showYearAndMonthEditorButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"img:nth-of-type(1)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> showCalendarButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-cal-day-lbl"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> popupWithCalendar<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"div[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-cal-time-btn</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]:nth-of-type(1)"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> okButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"table[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-cal-monthpicker-cnt</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">] td:nth-of-type(4) &gt; div"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> nextDecade<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css <span style="color: #990000">=</span> <span style="color: #FF0000">"table[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-cal-monthpicker-cnt</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">] td:nth-of-type(3) &gt; div"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> previousDecade<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> YEAR_AND_MONTH_LOCATOR_CSS <span style="color: #990000">=</span>
+                                                       <span style="color: #FF0000">"div[class=</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">rf-cal-edtr-btn</span><span style="color: #CC33CC">\"</span><span style="color: #FF0000">]"</span><span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> DAY_LOCATOR_CLASS <span style="color: #990000">=</span> <span style="color: #FF0000">"rf-cal-c"</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The format of date displayed on the calendar input, default dd/M/yyhh:mma</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">String</span> dateFormat <span style="color: #990000">=</span> <span style="color: #FF0000">"dd/M/yy hh:mm a"</span><span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">showCalendar</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(!</span>popupWithCalendar<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">isDisplayed</span></span><span style="color: #990000">())</span> <span style="color: #FF0000">{</span>
+            showCalendarButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+
+            <span style="font-weight: bold"><span style="color: #000000">waitUntilPopupWithCalendarIsDisplayed</span></span><span style="color: #990000">();</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">gotoDate</span></span><span style="color: #990000">(</span><span style="color: #008080">Date</span> date<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">showCalendar</span></span><span style="color: #990000">();</span>
+
+        <span style="color: #008080">Calendar</span> cal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">GregorianCalendar</span></span><span style="color: #990000">();</span>
+        cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setTime</span></span><span style="color: #990000">(</span>date<span style="color: #990000">);</span>
+        <span style="color: #009900">int</span> wishedYear <span style="color: #990000">=</span> cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>YEAR<span style="color: #990000">);</span>
+        <span style="font-style: italic"><span style="color: #9A1900">// month is indexed from 0!</span></span>
+        <span style="color: #009900">int</span> wishedMonth <span style="color: #990000">=</span> cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>MONTH<span style="color: #990000">);</span>
+        <span style="color: #009900">int</span> wishedDay <span style="color: #990000">=</span> cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>DAY_OF_MONTH<span style="color: #990000">);</span>
+
+        cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setTime</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Date</span></span><span style="color: #990000">(</span>System<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">currentTimeMillis</span></span><span style="color: #990000">()));</span>
+
+        <span style="color: #009900">int</span> todayYear <span style="color: #990000">=</span> cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>YEAR<span style="color: #990000">);</span>
+        <span style="color: #009900">int</span> todayMonth <span style="color: #990000">=</span> cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>MONTH<span style="color: #990000">);</span>
+        <span style="font-style: italic"><span style="color: #9A1900">// int todayDay = cal.get(Calendar.DAY_OF_MONTH);</span></span>
+
+        showYearAndMonthEditorButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">((</span>wishedYear <span style="color: #990000">!=</span> todayYear<span style="color: #990000">)</span> <span style="color: #990000">||</span> <span style="color: #990000">(</span>wishedMonth <span style="color: #990000">!=</span> todayMonth<span style="color: #990000">))</span> <span style="color: #FF0000">{</span>
+            <span style="color: #008080">List&lt;WebElement&gt;</span> years<span style="color: #990000">;</span>
+            <span style="color: #008080">String</span> txt<span style="color: #990000">;</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>todayYear <span style="color: #990000">&gt;</span> wishedYear<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="color: #009900">int</span> howManyDecadesLessOrMore <span style="color: #990000">=</span>
+                                              <span style="color: #990000">(</span>todayYear <span style="color: #990000">-</span> wishedYear<span style="color: #990000">)</span> <span style="color: #990000">/</span> <span style="color: #993399">10</span><span style="color: #990000">;</span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> howManyDecadesLessOrMore<span style="color: #990000">;</span> i<span style="color: #990000">++)</span>
+                    previousDecade<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+            <span style="color: #FF0000">}</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>todayYear <span style="color: #990000">&lt;</span> wishedYear<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="color: #009900">int</span> howManyDecadesLessOrMore <span style="color: #990000">=</span>
+                                              <span style="color: #990000">(</span>wishedYear <span style="color: #990000">-</span> todayYear<span style="color: #990000">)</span> <span style="color: #990000">/</span> <span style="color: #993399">10</span><span style="color: #990000">;</span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> howManyDecadesLessOrMore<span style="color: #990000">;</span> i<span style="color: #990000">++)</span>
+                    nextDecade<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+            <span style="color: #FF0000">}</span>
+
+            <span style="font-weight: bold"><span style="color: #000000">selectYear</span></span><span style="color: #990000">(</span>wishedYear<span style="color: #990000">);</span>
+
+            years <span style="color: #990000">=</span> root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>By
+                    <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">cssSelector</span></span><span style="color: #990000">(</span>YEAR_AND_MONTH_LOCATOR_CSS<span style="color: #990000">));</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #008080">WebElement</span> i <span style="color: #990000">:</span> years<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                txt <span style="color: #990000">=</span> i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">trim</span></span><span style="color: #990000">();</span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">matches</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"[a-zA-Z]+?"</span><span style="color: #990000">))</span> <span style="color: #FF0000">{</span>
+                    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Jan"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span><span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Feb"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Mar"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">2</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Apr"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">3</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"May"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">4</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Jun"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">5</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Jul"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">6</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Aug"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">7</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sep"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">8</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Oct"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">9</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Nov"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">10</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">equals</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Dec"</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;&amp;</span> wishedMonth <span style="color: #990000">==</span> <span style="color: #993399">11</span><span style="color: #FF0000">{</span>
+                        i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                        <span style="font-style: italic"><span style="color: #9A1900">// break;</span></span>
+                    <span style="color: #FF0000">}</span>
+                <span style="color: #FF0000">}</span>
+            <span style="color: #FF0000">}</span>
+
+            okButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+        <span style="color: #FF0000">}</span>
+
+        <span style="color: #008080">List&lt;WebElement&gt;</span> days <span style="color: #990000">=</span> root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>By
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">className</span></span><span style="color: #990000">(</span>DAY_LOCATOR_CLASS<span style="color: #990000">));</span>
+        <span style="color: #008080">String</span> txt<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #008080">WebElement</span> i <span style="color: #990000">:</span> days<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            txt <span style="color: #990000">=</span> i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">trim</span></span><span style="color: #990000">();</span>
+            <span style="color: #009900">int</span> day <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Integer</span></span><span style="color: #990000">(</span>txt<span style="color: #990000">);</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>day <span style="color: #990000">==</span> wishedDay<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects the year on the calendar, note that the month and year editor has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * to be shown already</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@param</span><span style="font-style: italic"><span style="color: #9A1900"> wishedYear</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *            the year you want to set</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span><span style="font-style: italic"><span style="color: #9A1900"> true if the year was successfully set, false otherwise</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #009900">boolean</span> <span style="font-weight: bold"><span style="color: #000000">selectYear</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> wishedYear<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">List&lt;WebElement&gt;</span> years <span style="color: #990000">=</span> root<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">findElements</span></span><span style="color: #990000">(</span>By
+                <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">cssSelector</span></span><span style="color: #990000">(</span>YEAR_AND_MONTH_LOCATOR_CSS<span style="color: #990000">));</span>
+        <span style="color: #008080">String</span> txt<span style="color: #990000">;</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #008080">WebElement</span> i <span style="color: #990000">:</span> years<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+            txt <span style="color: #990000">=</span> i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">trim</span></span><span style="color: #990000">();</span>
+            <span style="color: #009900">int</span> year<span style="color: #990000">;</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>txt<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">matches</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"</span><span style="color: #CC33CC">\\</span><span style="color: #FF0000">d+?"</span><span style="color: #990000">))</span> <span style="color: #FF0000">{</span>
+                year <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Integer</span></span><span style="color: #990000">(</span>txt<span style="color: #990000">);</span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>wishedYear <span style="color: #990000">==</span> year<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                    i<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+                    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span>
+                <span style="color: #FF0000">}</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">gotoDateTime</span></span><span style="color: #990000">(</span><span style="color: #008080">DateTime</span> dateTime<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">Date</span> date <span style="color: #990000">=</span> dateTime<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">toDate</span></span><span style="color: #990000">();</span>
+        <span style="font-weight: bold"><span style="color: #000000">gotoDate</span></span><span style="color: #990000">(</span>date<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">gotoDateTime</span></span><span style="color: #990000">(</span><span style="color: #008080">DateTime</span> dateTime<span style="color: #990000">,</span> <span style="color: #008080">ScrollingType</span> type<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">throw</span></span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UnsupportedOperationException</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Not implemented yet!"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">CalendarDay</span> <span style="font-weight: bold"><span style="color: #000000">gotoNextDay</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="color: #008080">Date</span> date <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">getDateTime</span></span><span style="color: #990000">().</span><span style="font-weight: bold"><span style="color: #000000">toDate</span></span><span style="color: #990000">();</span>
+        <span style="color: #008080">Calendar</span> cal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">GregorianCalendar</span></span><span style="color: #990000">();</span>
+        cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setTime</span></span><span style="color: #990000">(</span>date<span style="color: #990000">);</span>
+        cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">roll</span></span><span style="color: #990000">(</span>Calendar<span style="color: #990000">.</span>DAY_OF_MONTH<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">);</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">gotoDate</span></span><span style="color: #990000">(</span>cal<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getTime</span></span><span style="color: #990000">());</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// CalendarDay day = new CalendarDayImpl();</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">null</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="table">Table</h4>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/table.png" alt="images/author/download/attachments/53117994/table.png" />
+</span></p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/author/download/attachments/53117994/tableHTML.png" alt="images/author/download/attachments/53117994/tableHTML.png" />
+</span></p></div>
+<div class="listingblock">
+<div class="title">Table.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">TableComponent</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Associates this data table with a given data scroller</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@param</span><span style="font-style: italic"><span style="color: #9A1900"> scroller the scroller to associate this table with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setDateScroller</span></span><span style="color: #990000">(</span><span style="color: #008080">DataScrollerComponent</span> scroller<span style="color: #990000">);</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the total number of rows in this particular table.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">rowspan</span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900"> html atribute is not considered,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * in other words the row with </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">rowspan</span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900"> equals 2 is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * considered as one row.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getNumberOfRows</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns total number of cells in this particular table.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getNumberOfCells</span></span><span style="color: #990000">();</span>
+
+    <span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;</span> <span style="color: #008080">List&lt;Cell&lt;T&gt;&gt; findCells(CellFunction&lt;T&gt;</span> function<span style="color: #990000">);</span>
+
+    <span style="color: #008080">List&lt;Row&gt;</span> <span style="font-weight: bold"><span style="color: #000000">findRow</span></span><span style="color: #990000">(</span><span style="color: #008080">RowFunction</span> function<span style="color: #990000">);</span>
+
+    <span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;</span> <span style="color: #008080">List&lt;Column&lt;T&gt;&gt; findColumns(ColumnFunction&lt;T&gt;</span> function<span style="color: #990000">);</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the total number of columns in this particular table.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">colspan</span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900"> html atribute is not considered,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * in other words the column with </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">colspan</span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900"> equals 2 is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * considered as one column.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getNumberOfColumns</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the particular cell, the cell with coordinations determined</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * by given row and column.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@param</span><span style="font-style: italic"><span style="color: #9A1900"> row</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@param</span><span style="font-style: italic"><span style="color: #9A1900"> column</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">&lt;</span>T<span style="color: #990000">&gt;</span> <span style="color: #008080">Cell&lt;T&gt; getCell(Row row, Column&lt;T&gt;</span> column<span style="color: #990000">);</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the list of all header cells, in other words the whole table header.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">Header</span> <span style="font-weight: bold"><span style="color: #000000">getTableHeader</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the list of all footer cells, in other words the whole table footer.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">Footer</span> <span style="font-weight: bold"><span style="color: #000000">getTableFooter</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">List&lt;Row&gt;</span> <span style="font-weight: bold"><span style="color: #000000">getAllRows</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the first row of the table, the header row if available, is not counted.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">Row</span> <span style="font-weight: bold"><span style="color: #000000">getFirstRow</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the last row of the table, the footer row if available, is not counted.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">Row</span> <span style="font-weight: bold"><span style="color: #000000">getLastRow</span></span><span style="color: #990000">();</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the row with the order determined by given param </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">order</span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/code&gt;</span></span><span style="font-style: italic"><span style="color: #9A1900">.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Rows are indexed from 0. The header row if available is not counted.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="font-weight: bold"><span style="color: #0000FF">&lt;/p&gt;</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@param</span><span style="font-style: italic"><span style="color: #9A1900"> order the order of the row</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@return</span><span style="font-style: italic"><span style="color: #9A1900"> the particular row, or null if it does not exist</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #008080">Row</span> <span style="font-weight: bold"><span style="color: #000000">getRow</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> order<span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="login-component">Login Component</h4>
+<div class="listingblock">
+<div class="title">LoginPageFragment.java</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">LoginPageFragment</span> <span style="color: #FF0000">{</span>
+
+    @Root
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> root<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css<span style="color: #990000">=</span><span style="color: #FF0000">"input[type='text']"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> loginInput<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css<span style="color: #990000">=</span><span style="color: #FF0000">"input[type='password']"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> passwordInput<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>css<span style="color: #990000">=</span><span style="color: #FF0000">"input[type='submit']"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> loginButton<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span>className<span style="color: #990000">=</span><span style="color: #FF0000">"errorMsg"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="color: #008080">WebElement</span> errorMsg<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fillInLogin</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> login<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        loginInput<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>login<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fillInPassword</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> password<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        passwordInput<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span>password<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        loginButton<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">click</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">String</span> <span style="font-weight: bold"><span style="color: #000000">getErrorMsg</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> errorMsg<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="location-of-pages">Location of Pages</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="location-concepts">Location concepts</h3>
+<div class="paragraph"><p>Page object encapsulates some page. This page has its location. We can
+see the location of a page as some kind of metadata logically related to
+that page. In order to have this location information wired with page as
+such, there is @Location annotation by which you can specify where some
+page is located. Check out this simple example:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"index.html"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">SomePage</span>
+<span style="color: #FF0000">{</span>
+  <span style="font-style: italic"><span style="color: #9A1900">// just some page object</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>The above location value will be treated as the relative URL to the
+value of @ArquillianResource URL contextRoot - e.g.
+<a href="http://localhost:8080/app/index.html">http://localhost:8080/app/index.html</a>.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">Use @Location("") to denote that page object&#8217;s location equals to the
+context root of the deployed application.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>By putting @Location annotation at page object, when you inject this
+page annotated with @InitialPage annotation into a test method, that
+page object will be open at that location as the very first action in a
+test method. Lets see an example:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@Test
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testMethod</span></span><span style="color: #990000">(</span>@InitialPage <span style="color: #008080">SomePage</span> page<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-style: italic"><span style="color: #9A1900">// here you will have your page already open, WebDriver opens index.html</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// other code</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="location-schemes">Location schemes</h3>
+<div class="paragraph"><p>Every location has some scheme. In the previous example, HTTP scheme
+is used by default. There are multiple schemes as:</p></div>
+<div class="sect3">
+<h4 id="http-scheme">HTTP Scheme</h4>
+<div class="paragraph"><p>Treats location as http:// scheme. You do not have to specify <em>scheme</em>
+parameter since by default it is HTTP</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"http://www.google.com"</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">// by default scheme = Scheme.HTTP.class when omitted</span></span>
+@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"https://www.google.com"</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">// works with https as well, scheme is same</span></span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/caution.png" alt="Caution" />
+</td>
+<td class="content">
+<div class="paragraph"><p>You can not do this</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"www.google.com"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>since it is not possible to say if this location is relative (as
+index.html) or absolute. You have to use http:// scheme string
+explicitly to open regular "www" page on the net.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="file-scheme">File Scheme</h4>
+<div class="paragraph"><p>Treats location as file:// scheme</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span>scheme <span style="color: #990000">=</span> Scheme<span style="color: #990000">.</span>FILE<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> value <span style="color: #990000">=</span> <span style="color: #FF0000">"file:///full/path/to/page.html"</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="resource-scheme">Resource Scheme</h4>
+<div class="paragraph"><p>Treats location as resource:// scheme</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span>scheme <span style="color: #990000">=</span> Scheme<span style="color: #990000">.</span>RESOURCE<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> value <span style="color: #990000">=</span> <span style="color: #FF0000">"resource://..."</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">The "resource://" prefix denotes that the page is not deployed to any
+container, and will be loaded from local file-system. The same you can
+achieve with prefix "file".</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">Check out Graphene Utility Class documentation page, to see how you can
+use Graphene.goTo(Class&lt;?&gt; pageObjectClass) method to load Page Object
+location in the browser.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how-do-i-implement-my-own-scheme">How Do I Implement My Own Scheme?</h3>
+<div class="paragraph"><p>Custom scheme is implemented e.g. in Droidium so you can open your
+activities as pages. You have to extend
+<a href="https://github.com/arquillian/arquillian-graphene/blob/2.1.x/spi/src/main/java/org/jboss/arquillian/graphene/spi/location/Scheme.java">org.jboss.arquillian.graphene.spi.location.Scheme</a>
+and add your own scheme like this:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">public</span></span> DroidiumScheme <span style="font-weight: bold"><span style="color: #0000FF">extends</span></span> Scheme
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">private</span></span> <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">final</span></span> <span style="color: #008080">String</span> scheme <span style="color: #990000">=</span> <span style="color: #FF0000">"and-activity://"</span><span style="color: #990000">;</span>
+
+    @Override
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #008080">String</span> <span style="font-weight: bold"><span style="color: #000000">toString</span></span><span style="color: #990000">()</span>
+    <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> scheme<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>Then you have to implement your own
+<a href="https://github.com/arquillian/arquillian-graphene/blob/2.1.x/spi/src/main/java/org/jboss/arquillian/graphene/spi/location/LocationDecider.java">org.jboss.arquillian.graphene.location.decider.LocationDecider</a>
+which is in Graphene SPI as well. This decider resolves scheme value
+to which WebDriver instance will subsequently open via get() method.</p></div>
+<div class="paragraph"><p>Finally you have to register this decider as a service in Arquillian&#8217;s
+loadable extension.</p></div>
+<div class="paragraph"><p>After that, you can do this:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span>scheme <span style="color: #990000">=</span> DroidiumScheme<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">,</span> value <span style="color: #990000">=</span> <span style="color: #FF0000">"this.is.my.android.activity"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">SomeActivityPage</span>
+<span style="color: #FF0000">{</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@Test
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testMyActivity</span></span><span style="color: #990000">(</span>@InitialPage <span style="color: #008080">SomeActivityPage</span> myActivity<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-style: italic"><span style="color: #9A1900">// here your Android activity will be already open by WebDriver</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="how-to-set-default-scheme-per-project">How To Set Default Scheme Per Project?</h3>
+<div class="paragraph"><p>Imagining you are dealing only with Android activities so specifying
+<em>scheme = DroidiumScheme.class</em> is not needed. You can set default
+scheme in arquillian.xml like this:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;</span><span style="color: #008080">extension</span> qualifier<span style="color: #990000">=</span><span style="color: #FF0000">"graphene"</span><span style="color: #990000">&gt;</span>
+  <span style="color: #990000">&lt;!--</span> <span style="color: #008080">Droidium</span> everywhere <span style="color: #990000">--&gt;</span>
+  <span style="color: #990000">&lt;</span><span style="color: #008080">property</span> name<span style="color: #990000">=</span><span style="color: #FF0000">"scheme"</span><span style="color: #990000">&gt;</span>org<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>droidium<span style="color: #990000">.</span>native_<span style="color: #990000">.</span>spi<span style="color: #990000">.</span>location<span style="color: #990000">.</span>DroidiumScheme<span style="color: #990000">&lt;/</span>property<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>extension<span style="color: #990000">&gt;</span></tt></pre></div></div>
+<div class="paragraph"><p>Now you can use it like:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Location</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"this.is.my.android.activity"</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-03-14 18:32:29 IST
+</div>
+</div>
+</body>
+</html>

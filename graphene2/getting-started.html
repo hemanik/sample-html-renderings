@@ -1,0 +1,1439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Getting Started - Graphene 2</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Getting Started - Graphene 2</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Graphene strongly ties to Arquillian Core and its extensions Containers
+and Drone to manage lifecycle of the application server, selenium server
+and Graphene.</p></div>
+<div class="paragraph"><p>In the common scenarios, you only need to choose container you would
+like to deploy application into and the framework you would like to use
+for testing.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-setup">Project Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="maven-project-dependencies">Maven Project Dependencies</h3>
+<div class="paragraph"><p>In order to setup project dependencies, you need to define library
+dependencies. Refer to <a href="#framework-integration-options">Framework Integration Options</a> for more details.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-with-testing-from-java">Starting With Testing From Java</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The simplest possible test would look like this:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">BasicTestCase</span> <span style="color: #FF0000">{</span>
+
+    @Drone
+    <span style="color: #008080">WebDriver</span> driver<span style="color: #990000">;</span>
+
+    @Test
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testOpeningHomePage</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"http://www.google.com"</span><span style="color: #990000">);</span>
+
+        <span style="color: #008080">String</span> pageTitle <span style="color: #990000">=</span> driver<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getTitle</span></span><span style="color: #990000">();</span>
+
+        Assert<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>pageTitle<span style="color: #990000">,</span> <span style="color: #FF0000">"Google"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>This test uses @Drone annotation in order to bring browser to your test
+case using dependency injection. You can read more about <a href="#using-drone-1">Using Drone</a>, to get
+information about which instances to use in which situations.</p></div>
+<div class="paragraph"><p>The browser is represented by WebDriver class instance (or its
+implementations). For more information about <em>what is WebDriver</em> and how it relates to Graphene,
+look at <a href="#using-webdriver">Using WebDriver</a>.</p></div>
+<div class="paragraph"><p>This is a really simple case and does not really show where Graphene
+excels.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="advanced-use-cases">Advanced Use Cases</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="page-abstractions">Page Abstractions</h3>
+<div class="paragraph"><p>On the high level, Graphene allows you to create reusable abstractions
+in form of <a href="#page-abstractions#page-objects">Page Objects</a>
+(the pattern widely known in Selenium community)
+and <a href="#page-abstractions#page-fragments">Page Fragments</a>, which allows you to encapsulate smaller pieces of your page
+like JavaScript widgets, UI components or simply forms.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">RunWith</span></span><span style="color: #990000">(</span>Arquillian<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">TestLogin</span> <span style="color: #FF0000">{</span>
+
+    @Drone
+    <span style="color: #008080">WebDriver</span> browser<span style="color: #990000">;</span>
+
+    @Page
+    <span style="color: #008080">HomePage</span> homePage<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">Test</span></span><span style="color: #990000">(</span>expects <span style="color: #990000">=</span> LoginFailedException<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testLoginFailed</span></span><span style="color: #990000">()</span>
+        homePage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"non-existent"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"user"</span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">HomePage</span> <span style="color: #FF0000">{</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span><span style="color: #FF0000">".login-form"</span><span style="color: #990000">)</span>
+    <span style="color: #008080">LoginDialog</span> loginDialog<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span><span style="color: #FF0000">".search"</span><span style="color: #990000">)</span>
+    <span style="color: #008080">AutocompleteComponent</span> fulltextSearch<span style="color: #990000">;</span>
+
+    @<span style="font-weight: bold"><span style="color: #000000">FindBy</span></span><span style="color: #990000">(</span><span style="color: #FF0000">".events"</span><span style="color: #990000">)</span>
+    <span style="color: #008080">CalendarComponent</span> eventCalendar<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * </span></span><span style="color: #009900">@throws</span><span style="font-style: italic"><span style="color: #9A1900"> LoginFailedException when login fails</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">(</span><span style="color: #008080">String</span> user<span style="color: #990000">,</span> <span style="color: #008080">String</span> password<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+       loginDialog<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setUser</span></span><span style="color: #990000">(</span>user<span style="color: #990000">);</span>
+       loginDialog<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setPassword</span></span><span style="color: #990000">(</span>password<span style="color: #990000">);</span>
+       loginDialog<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">login</span></span><span style="color: #990000">();</span>
+    <span style="color: #FF0000">}</span>
+
+   <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">switchToEvent</span></span><span style="color: #990000">(</span><span style="color: #008080">Date</span> date<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+       eventCalendar<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clickOnDate</span></span><span style="color: #990000">(</span>date<span style="color: #990000">);</span>
+   <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>You can read more about using reusable <a href="#page-abstractions#">Page Abstractions</a>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="testing-ajax">Testing AJAX</h3>
+<div class="paragraph"><p>Second big promise of Graphene is make testing of applications using
+asynchronous calls heavily (AJAX, WebSocket, &#8230;) a simple task.</p></div>
+<div class="paragraph"><p>Graphene allows that by exposing compact syntax for describing
+conditions which must be met on the page once asynchronous call is
+finished.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@Test
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testRegistrationForm</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #000000">guardXhr</span></span><span style="color: #990000">(</span>nameInput<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"John"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #000000">assertEquals</span></span><span style="color: #990000">(</span>nameMessage<span style="color: #990000">,</span> <span style="color: #FF0000">"The username was already registered"</span><span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span>
+
+@Test
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">testRegistrationForm</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    nameInput<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">sendKeys</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"John"</span><span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #000000">waitAjax</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">element</span></span><span style="color: #990000">(</span>nameMessage<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">textContains</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"already registered"</span><span style="color: #990000">));</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>You can read more about <a href="#testing-ajax-1">Testing AJAX</a>, or can go
+directly to the documentation of features, which enables
+that:</p></div>
+<div class="sect3">
+<h4 id="graphene-utility-class">Graphene Utility Class</h4>
+<div class="paragraph"><p><a href="#graphene-utility-class#">Graphene Utility Class</a> enables compact syntax for waiting and guards.</p></div>
+</div>
+<div class="sect3">
+<h4 id="request-guards">Request Guards</h4>
+<div class="paragraph"><p><a href="#request-guards#">Request Guards</a> bring simplest conditions like wait for a request to finish
+(blocking test).</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-the-hood">Under the Hood</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Graphene enables way more features on a low level. Using following features may help you write outstanding tests:</p></div>
+<div class="sect2">
+<h3 id="graphene-context">Graphene Context</h3>
+<div class="paragraph"><p>Allows you to obtain current thread-local context of the browser and
+"inject" it where you need it without reference propagation.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">WebDriver</span> browser <span style="color: #990000">=</span> GrapheneContext<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getContextFor</span></span><span style="color: #990000">(</span>Default<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">class</span></span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">getWebDriver</span></span><span style="color: #990000">();</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="javascript-interface">JavaScript Interface</h3>
+<div class="paragraph"><p>Allows you to call JavaScript functions from Java directly.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@JavaScript
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">Document</span> <span style="color: #FF0000">{</span>
+    <span style="color: #008080">String</span> <span style="font-weight: bold"><span style="color: #000000">getTitle</span></span><span style="color: #990000">();</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="page-extensions">Page Extensions</h3>
+<div class="paragraph"><p>Allows you to bring JavaScript code to the browser.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@<span style="font-weight: bold"><span style="color: #000000">Dependency</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"requestGuard.js"</span><span style="color: #990000">)</span>
+@<span style="font-weight: bold"><span style="color: #000000">JavaScript</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"graphene.requestGuard"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">RequestGuard</span> <span style="color: #FF0000">{</span>
+    <span style="color: #008080">RequestType</span> <span style="font-weight: bold"><span style="color: #000000">getRequestDone</span></span><span style="color: #990000">();</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-drone">Using Drone</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Drone is an extension for Arquillian that manages lifecycle of the Selenium
+Server and Selenium clients as Selenium 1.x, Selenium 2.x and Graphene.</p></div>
+<div class="paragraph"><p>Refer to <a href="#using-drone-1">Using Drone</a> section for more information.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-graphene-tests-from-an-ide">Running Graphene Tests From An IDE</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>It is possible to run Graphene tests from any modern IDE. See
+<a href="http://arquillian.org/guides/getting_started">Arquillian Getting Started
+Guide</a> for more information about how to run and debug tests in Eclipse.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="framework-integration-options">Framework Integration Options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>In order to setup Graphene&#8217;s library dependencies, you need to choose
+between components:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Test Framework (JUnit, TestNG, &#8230;)
+</p>
+</li>
+<li>
+<p>
+Arquillian Mode (standalone, container)
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="test-framework-options">Test Framework Options</h3>
+<div class="paragraph"><p>For Graphene to fluently work with JUnit and TestNG, you need to include
+their dependencies in your POM dependencies section:</p></div>
+<div class="sect3">
+<h4 id="junit">JUnit</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;!--</span> JUnit <span style="color: #990000">--&gt;</span>
+<span style="color: #990000">&lt;</span>dependency<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>groupId<span style="color: #990000">&gt;</span>junit<span style="color: #990000">&lt;/</span>groupId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>artifactId<span style="color: #990000">&gt;</span>junit<span style="color: #990000">&lt;/</span>artifactId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>scope<span style="color: #990000">&gt;</span>test<span style="color: #990000">&lt;/</span>scope<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>dependency<span style="color: #990000">&gt;</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="testng">TestNG</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;!--</span> TestNG <span style="color: #990000">--&gt;</span>
+<span style="color: #990000">&lt;</span>dependency<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>groupId<span style="color: #990000">&gt;</span>org<span style="color: #990000">.</span>testng<span style="color: #990000">&lt;/</span>groupId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>artifactId<span style="color: #990000">&gt;</span>testng<span style="color: #990000">&lt;/</span>artifactId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>scope<span style="color: #990000">&gt;</span>test<span style="color: #990000">&lt;/</span>scope<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>dependency<span style="color: #990000">&gt;</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="arquillian-mode-options">Arquillian Mode Options</h3>
+<div class="paragraph"><p>You can choose between following Arquillian modes</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>Standalone</strong>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+runs tests without container integration, only lifecycle of
+extensions is managed
+</p>
+</li>
+<li>
+<p>
+allows to use Graphene independently of Arquillian containers and
+deployment management
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<strong>Container</strong>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+runs tests with container, managed lifecycle of container including
+deployment
+</p>
+</li>
+<li>
+<p>
+you can still use Graphene without managing lifecycle - just do not
+provide @Deployment in your test case and include those in dependencies
+section of your POM.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">You need to use Arquillian integration specific for your test
+framework - following dependencies are for JUnit -  for using TestNG,
+you need to replace "junit" keyword with "testng"</td>
+</tr></table>
+</div>
+<div class="sect3">
+<h4 id="standalone-mode">Standalone Mode</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;!--</span> Arquillian <span style="color: #008080">JUnit</span> Standalone <span style="color: #990000">--&gt;</span>
+<span style="color: #990000">&lt;</span>dependency<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>groupId<span style="color: #990000">&gt;</span>org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>junit<span style="color: #990000">&lt;/</span>groupId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>artifactId<span style="color: #990000">&gt;</span>arquillian<span style="color: #990000">-</span>junit<span style="color: #990000">-</span>standalone<span style="color: #990000">&lt;/</span>artifactId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>scope<span style="color: #990000">&gt;</span>test<span style="color: #990000">&lt;/</span>scope<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>dependency<span style="color: #990000">&gt;</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="container-mode">Container Mode</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;!--</span> Arquillian <span style="color: #008080">JUnit</span> Container <span style="color: #990000">--&gt;</span>
+<span style="color: #990000">&lt;</span>dependency<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>groupId<span style="color: #990000">&gt;</span>org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>junit<span style="color: #990000">&lt;/</span>groupId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>artifactId<span style="color: #990000">&gt;</span>arquillian<span style="color: #990000">-</span>junit<span style="color: #990000">-</span>container<span style="color: #990000">&lt;/</span>artifactId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>scope<span style="color: #990000">&gt;</span>test<span style="color: #990000">&lt;/</span>scope<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>dependency<span style="color: #990000">&gt;</span></tt></pre></div></div>
+<div class="sect4">
+<h5 id="which-version-to-use">Which Version To Use?</h5>
+<div class="paragraph"><p>To find out which version to use, check out <a href="http://arquillian.org/modules/core-platform/">http://arquillian.org/modules/core-platform/</a></p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="container-management">Container Management</h3>
+<div class="paragraph"><p>Graphene uses Arquillian Containers in order to manage lifecycle of the
+application container and deployment.</p></div>
+<div class="paragraph"><p>To setup Arquillian to use your favorite container, refer
+to 
+<a href="https://docs.jboss.org/author/display/ARQ/Container+adapters">Container
+adapters</a>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="selenium-version">Selenium Version</h3>
+<div class="paragraph"><p><strong>Graphene 2</strong> covers integration with <strong>WebDriver</strong> (aka Selenium 2), but
+it can be used in the same project together with <strong>Graphene 1</strong> (based on
+<strong>Selenium 1</strong>).</p></div>
+<div class="paragraph"><p>For more detailed summary of differences, refer
+to 
+<a href="https://docs.jboss.org/author/pages/viewpage.action?pageId=53118297">which
+Graphene to use?</a></p></div>
+<div class="paragraph"><p>When adding following dependencies, all required dependencies should be
+brought to your project as transitive dependencies, including:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Drone
+</p>
+</li>
+<li>
+<p>
+WebDriver
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="use-graphene">Use Graphene:</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;</span>dependency<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>groupId<span style="color: #990000">&gt;</span>org<span style="color: #990000">.</span>jboss<span style="color: #990000">.</span>arquillian<span style="color: #990000">.</span>graphene<span style="color: #990000">&lt;/</span>groupId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>artifactId<span style="color: #990000">&gt;</span>graphene<span style="color: #990000">-</span>webdriver<span style="color: #990000">&lt;/</span>artifactId<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>type<span style="color: #990000">&gt;</span>pom<span style="color: #990000">&lt;/</span>type<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;</span>scope<span style="color: #990000">&gt;</span>test<span style="color: #990000">&lt;/</span>scope<span style="color: #990000">&gt;</span>
+<span style="color: #990000">&lt;/</span>dependency<span style="color: #990000">&gt;</span></tt></pre></div></div>
+<div class="sect4">
+<h5 id="which-version-to-use-1">Which Version To Use?</h5>
+<div class="paragraph"><p><a href="http://arquillian.org/modules/graphene-extension/">http://arquillian.org/modules/graphene-extension/</a></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">In order to rewrite dependencies transitively brought by Graphene
+(e.g. Drone), you can use BOMs (see bellow)</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bom-and-dependency-management-usage">BOM and Dependency Management Usage</h3>
+<div class="paragraph"><p>In order to manage or override dependency versions used in the project,
+it is recommended to use
+<a href="http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">BOM</a>s.
+By importing BOM to your Maven POM, you manage versions of dependencies,
+so you don&#8217;t need to define them explicitly.</p></div>
+<div class="paragraph"><p>In connection to Graphene, you may want to use these BOMs:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://arquillian.org/modules/core-platform/">arquillian-bom</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://arquillian.org/modules/drone-extension/">arquillian-drone-bom</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://github.com/arquillian/arquillian-selenium-bom">selenium-bom</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-webdriver">Using WebDriver</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Graphene builds on top of Selenium WebDriver project and brings
+extensions which helps you write robust Java-based tests simply from
+your IDE.</p></div>
+<div class="paragraph"><p>Graphene is thus not a standalone project, but an extension over Arquillian
+and Selenium projects to make testing easier.</p></div>
+<div class="sect2">
+<h3 id="how-to-learn-webdriver">How to Learn WebDriver?</h3>
+<div class="paragraph"><p>You can start with resources
+<a href="http://seleniumhq.org/docs/03_webdriver.html">Introducing WebDriver</a> and
+<a href="http://seleniumhq.org/docs/04_webdriver_advanced.html">WebDriver&#8217;s
+Advanced Usage</a>.</p></div>
+<div class="paragraph"><p>After getting yourself familiar with what WebDriver is, you can dive into
+Graphene documentation.<br />
+If you don&#8217;t find resources on how to achieve something with Graphene,
+let&#8217;s try to look on how to achieve that with WebDriver.</p></div>
+</div>
+<div class="sect2">
+<h3 id="why-i-need-graphene">Why I Need Graphene?</h3>
+<div class="paragraph"><p>Graphene helps you to bring your test project to the world of Arquillian
+as well as it brings you very useful addons.</p></div>
+<div class="paragraph"><p>However you can use as much Graphene as you want, since Graphene
+integrates with WebDriver non-pervasively.</p></div>
+</div>
+<div class="sect2">
+<h3 id="graphene-integration-with-webdriver---under-the-hood">Graphene Integration With WebDriver - Under the Hood</h3>
+<div class="paragraph"><p>The integration starts with instantiation of the WebDriver instance
+leveraging Arquillian Drone extension.</p></div>
+<div class="paragraph"><p>Graphene then takes new instance of WebDriver&#8217;s browser session and
+store it in its context.</p></div>
+<div class="paragraph"><p>Then Graphene also wraps the WebDriver instance in order to intercept
+calls.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-drone-1">Using Drone</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Graphene integrates with Arquillian Drone to simplify process of
+instantiation of browser session.<br />
+So Drone takes care of WebDriver instance creation and configuration and
+then it delegates this session to Graphene.</p></div>
+<div class="sect2">
+<h3 id="configuration">Configuration</h3>
+<div class="paragraph"><p>Graphene shares the configuration with Drone WebDriver, so you can refer
+to <a href="https://docs.jboss.org/author/display/ARQ/Drone">Drone</a>.</p></div>
+<div class="paragraph"><p>In general, configuration is driven by arquillian.xml and can be
+overriden by System properties.</p></div>
+</div>
+<div class="sect2">
+<h3 id="browser-instantiation">Browser Instantiation</h3>
+<div class="paragraph"><p>You can ask Drone to instantiate any <strong>specific implementation</strong> of
+WebDriver like FirefoxDriver, ChromeDriver or HtmlUnitDriver, e.g.:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@Drone
+<span style="color: #008080">FirefoxDriver</span> browser<span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>But it is <strong>recommended</strong> to use WebDriver interface and use
+arquillian.xml to choose appropriate browser instance:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>@Drone
+<span style="color: #008080">WebDriver</span> browser<span style="color: #990000">;</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt> <span style="color: #990000">&lt;</span><span style="color: #008080">arquillian</span> xmlns<span style="color: #990000">=</span><span style="color: #FF0000">"http://jboss.com/arquillian"</span> xmlns<span style="color: #990000">:</span>xsi<span style="color: #990000">=</span><span style="color: #FF0000">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    xsi<span style="color: #990000">:</span>schemaLocation<span style="color: #990000">=</span><span style="color: #FF0000">"http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd"</span><span style="color: #990000">&gt;</span>
+
+    <span style="color: #990000">&lt;</span><span style="color: #008080">extension</span> qualifier<span style="color: #990000">=</span><span style="color: #FF0000">"webdriver"</span><span style="color: #990000">&gt;</span>
+        <span style="color: #990000">&lt;</span><span style="color: #008080">property</span> name<span style="color: #990000">=</span><span style="color: #FF0000">"browser"</span><span style="color: #990000">&gt;</span>firefox<span style="color: #990000">&lt;/</span>property<span style="color: #990000">&gt;</span>
+    <span style="color: #990000">&lt;/</span>extension<span style="color: #990000">&gt;</span>
+
+<span style="color: #990000">&lt;/</span>arquillian<span style="color: #990000">&gt;</span></tt></pre></div></div>
+<div class="paragraph"><p>For more configuration options, refer to
+<a href="https://docs.jboss.org/author/display/ARQ/Drone">Drone</a> and
+<a href="http://seleniumhq.org/docs/03_webdriver.html#selenium-webdriver-s-drivers">browser
+driver implementations</a>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="drone-reusable-session">Drone Reusable Session</h3>
+<div class="paragraph"><p>In order to speed up development, Drone comes with Reusable Remote
+WebDriver Session feature.</p></div>
+<div class="paragraph"><p>This feature ensures that Drone does not close the browser session at
+the end of each test, and stores the session handle in permanent storage.</p></div>
+<div class="paragraph"><p>Thus after running first test, browser session is still open and next
+tests can reuse it.</p></div>
+<div class="sect3">
+<h4 id="speed-up-development">Speed Up Development</h4>
+<div class="paragraph"><p>Since browser session does not have to be opened repeatedly, Drone saves
+this time and repeating a test leads into huge time savings.</p></div>
+<div class="paragraph"><p>This enables browser automated test development to as close as unit tests
+execution time as possible.</p></div>
+</div>
+<div class="sect3">
+<h4 id="improved-browser-debugging">Improved Browser Debugging</h4>
+<div class="paragraph"><p>Since session is not closed at the end of test, you can tweak anything
+in browser setup you want including setup of browser debuggers (Firebug,
+Chrome Dev Tools).</p></div>
+<div class="paragraph"><p>You can for example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+open debugger and watch network usage
+</p>
+</li>
+<li>
+<p>
+insert breakpoints to scripts
+</p>
+</li>
+<li>
+<p>
+watch browser console
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">It is tempting to use this feature to also speed up test
+execution - this is not recommended, since then tests can influence each
+other.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-selenium-server">Using Selenium Server</h4>
+<div class="paragraph"><p>This feature is available only when using remote WebDriver session. So
+you need to <a href="http://seleniumhq.org/download/">download appropriate version
+of Selenium Server</a> and start the server:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>java <span style="color: #990000">-</span><span style="color: #008080">jar</span> selenium<span style="color: #990000">-</span>server<span style="color: #990000">-</span>standalone<span style="color: #990000">-</span><span style="color: #993399">2.35</span><span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">.</span>jar</tt></pre></div></div>
+<div class="paragraph"><p>Now Drone can connect to this server and share the session-id across
+several tests.</p></div>
+</div>
+<div class="sect3">
+<h4 id="turn-on-reusable-browser-session-session">Turn on Reusable Browser Session session</h4>
+<div class="paragraph"><p>You can turn on Reusable Browser Session by following entry:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">&lt;</span><span style="color: #008080">arquillian</span> xmlns<span style="color: #990000">=</span><span style="color: #FF0000">"http://jboss.com/arquillian"</span> xmlns<span style="color: #990000">:</span>xsi<span style="color: #990000">=</span><span style="color: #FF0000">"http://www.w3.org/2001/XMLSchema-instance"</span>
+    xsi<span style="color: #990000">:</span>schemaLocation<span style="color: #990000">=</span><span style="color: #FF0000">"http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd"</span><span style="color: #990000">&gt;</span>
+
+    <span style="color: #990000">&lt;</span><span style="color: #008080">extension</span> qualifier<span style="color: #990000">=</span><span style="color: #FF0000">"webdriver"</span><span style="color: #990000">&gt;</span>
+        <span style="color: #990000">&lt;</span><span style="color: #008080">property</span> name<span style="color: #990000">=</span><span style="color: #FF0000">"remoteReusable"</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">&lt;/</span>property<span style="color: #990000">&gt;</span>
+        <span style="color: #990000">&lt;</span><span style="color: #008080">property</span> name<span style="color: #990000">=</span><span style="color: #FF0000">"remoteAddress"</span><span style="color: #990000">&gt;</span>http<span style="color: #990000">:</span><span style="font-style: italic"><span style="color: #9A1900">//localhost:4444/wd/hub/&lt;/property&gt;</span></span>
+    <span style="color: #990000">&lt;/</span>extension<span style="color: #990000">&gt;</span>
+
+<span style="color: #990000">&lt;/</span>arquillian<span style="color: #990000">&gt;</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing-ajax-1">Testing AJAX</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When testing AJAX-enabled applications, you are facing big deal
+of asynchronous behavior:</p></div>
+<div class="sect2">
+<h3 id="waiting-for-the-results-of-actions">Waiting for the Results of Actions</h3>
+<div class="paragraph"><p>When calling any action, it takes time before browser&#8217;s request is
+processed on the server. Test must be written so that it counts with any time before it can
+proceed with execution. This does not include only server processing, but also complex
+client-side computations.</p></div>
+<div class="sect3">
+<h4 id="solution-waiting-for-appropriate-conditions">Solution: Waiting for Appropriate Conditions</h4>
+<div class="paragraph"><p>When writing tests, you must be aware what changes are happening on a
+page as a result of user action and design a appropriate condition to
+wait for.</p></div>
+<div class="paragraph"><p>Graphene offers two solution to waiting for appropriate conditions:</p></div>
+<div class="sect4">
+<h5 id="waiting-conditions">Waiting Conditions</h5>
+<div class="paragraph"><p>Graphene uses <code>WebDriverWait</code> object and defines most used waiting
+conditions in <a href="#graphene-utility-class#">Graphene Utility Class</a>.</p></div>
+<div class="paragraph"><p>When defining waiting conditions, you might use exact or benevolent
+conditions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>benevolent</strong> conditions (e.g. wait for text to appear on the page) are
+more robust, but does not test exact page conditions
+</p>
+</li>
+<li>
+<p>
+<strong>exact</strong> conditions (e.g. wait for given element to have text which is
+equal to) tests application behavior more closely, but they are more
+error-prone
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>You can read more about <a href="#waiting-API#">Waiting API</a>.</p></div>
+</div>
+<div class="sect4">
+<h5 id="request-guards-1">Request Guards</h5>
+<div class="paragraph"><p>More powerful mechanism than conditions -
+<a href="#request-guards#">Request Guards</a> - watches request object on the page and
+waits for the given browser communication (HTTP, AJAX) to happen.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">It is not sufficient to use any mechanism for pausing the
+test as the mechanism for waiting for conditions (e.g. Thread.sleep) as
+it leads to unstable tests and increases execution time. The golden rule
+is that each action must have appropriate reaction on the page,
+otherwise the UI is not designed well.</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="elements-not-present">Elements Not Present</h3>
+<div class="paragraph"><p>Test must be aware that elements which tests depend on might not be
+present immediately, but might be shown after the asynchronous action
+is processed.</p></div>
+<div class="sect3">
+<h4 id="solution-defensive-conditions">Solution: Defensive Conditions</h4>
+<div class="paragraph"><p>Graphene&#8217;s built-in waiting conditions are coded in defensive manner, it
+means when you are waiting before the element&#8217;s background becomes red,
+the condition will not fail when element is not present.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="stale-dom-elements">Stale DOM Elements</h3>
+<div class="paragraph"><p>AJAX-based applications often update page content by replacing a
+portion of the DOM with another one.<br />
+Even though the rendered output might be the same, the element references
+might be different.</p></div>
+<div class="sect3">
+<h4 id="solution-staleness-aware-page-abstractions">Solution: Staleness Aware Page Abstractions</h4>
+<div class="paragraph"><p><a href="#page-abstractions#">Page abstractions</a> created by Graphene are by default
+aware of stale element, so they try to re-initialize element reference when
+they find out the reference is stale.</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-03-14 18:06:00 IST
+</div>
+</div>
+</body>
+</html>
